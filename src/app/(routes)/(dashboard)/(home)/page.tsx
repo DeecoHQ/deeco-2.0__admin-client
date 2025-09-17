@@ -1,15 +1,21 @@
 "use client";
 
 import { useSelector, useDispatch } from "react-redux";
+import type { RootState } from '@/app/rtk-base/store';
 import { increment, decrement, reset } from "@/app/rtk-base/slices/counter-slice";
+import PageRoutesIndicator from "../components/PageRoutesIndicator";
 
 export default function Home() {
-  const count = useSelector((state: any) => state.counter.value);
+
+const count = useSelector((state: RootState) => state.counter.value);
   const dispatch = useDispatch();
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-white p-6">
-      <h1 className="text-4xl font-bold text-gray-900 mb-6">
+  <>
+   <main className="p-6 min-h-screen flex flex-col">
+     <PageRoutesIndicator pageRoutes="Admin / Dashboard Home" pageTitle="Dashboard Home" />
+     <div className="flex-1 flex flex-col  items-center justify-center">
+         <h1 className="text-4xl font-bold text-gray-900 mb-6">
         Redux Counter Example 🚀
       </h1>
 
@@ -40,6 +46,9 @@ export default function Home() {
           </button>
         </div>
       </div>
+     </div>
     </main>
+  </>
+   
   );
 }
