@@ -4,8 +4,8 @@ import { Providers } from "@/app/rtk-base/providers";
 import { nunito_sans, poppins } from "./utils/font";
 
 export const metadata: Metadata = {
-  title: "My Next.js App",
-  description: "Deeco Platform",
+  title: 'Deeco: The Best Way To Sell Online',
+  description: 'Deeco Platform',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
