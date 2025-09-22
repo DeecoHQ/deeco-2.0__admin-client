@@ -1,7 +1,8 @@
 import "@/app/styles/globals.css";
 import type { Metadata } from "next";
 import { Providers } from "@/app/rtk-base/providers";
-import { nunito_sans, poppins } from "./utils/font";
+import {nunitoSans, poppins} from "@/app/utils/font";
+import EntityFormModal from "@/app/(routes)/(dashboard)/components/EntityFormModal";
 
 export const metadata: Metadata = {
   title: "My Next.js App",
@@ -10,9 +11,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${nunito_sans} ${poppins}`}>
+    <html lang="en" className={`${nunitoSans.className} ${poppins.className}`}>
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <EntityFormModal />
+         </Providers>
       </body>
     </html>
   );
