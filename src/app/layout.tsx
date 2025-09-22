@@ -5,8 +5,8 @@ import {nunitoSans, poppins} from "@/app/utils/font";
 import EntityFormModal from "@/app/(routes)/(dashboard)/components/EntityFormModal";
 
 export const metadata: Metadata = {
-  title: "My Next.js App",
-  description: "Deeco Platform",
+  title: 'Deeco: The Best Way To Sell Online',
+  description: 'Deeco Platform',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
