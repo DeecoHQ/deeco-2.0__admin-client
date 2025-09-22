@@ -23,7 +23,7 @@ function MobileNavBar(): JSX.Element {
         <div className="flex items-center justify-between py-4 px-3">
           {/* Logo */}
           <section className="flex gap-x-4 items-center">
-            <div className="relative h-[32px] w-[120px] flex items-center">
+            <Link href="/" className="relative h-[32px] w-[120px] flex items-center">
               <Image
                 src={Logo}
                 alt="platform logo"
@@ -32,7 +32,7 @@ function MobileNavBar(): JSX.Element {
                 sizes="120px"
                 priority
               />
-            </div>
+            </Link>
           </section>
 
           {/* Icons */}

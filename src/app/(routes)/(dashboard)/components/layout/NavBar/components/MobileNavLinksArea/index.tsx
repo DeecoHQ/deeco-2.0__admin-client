@@ -40,7 +40,7 @@ const MobileNavLinksArea = ({ toggleSideBar }: NavLinksProps) => {
           <HiOutlineXMark className="text-[25px]" />
         </section>
       </div>
-      <div className=" py-4">
+      <div className="py-4">
         <ul className="flex flex-col gap-y-1">
           {sidebarLinks.map(({ path, label, icon }) => (
             <li key={path}>
