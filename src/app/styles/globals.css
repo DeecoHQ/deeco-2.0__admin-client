@@ -3,13 +3,32 @@
 :root {
   --font-nunito_sans: 'Nunito Sans', sans-serif;
   --font-poppins: 'Poppins', sans-serif;
+  --font-Lato: 'Lato', sans-serif
 }
 
 /* Override Tailwind’s default font-sans */
 html {
-  font-family: var(--font-nunito_sans);
+  font-family: var(--font-lato);
 }
 
 .poppins {
   font-family: var(--font-poppins);
+}
+
+.font-nunito_sans {
+  font-family: var(--font-nunito_sans)
+}
+
+.log-in-screen-background-image {
+  background-image: url('../assets/img-1.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.sign-up-screen-background-image {
+  background-image: url('../assets/img-2.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }

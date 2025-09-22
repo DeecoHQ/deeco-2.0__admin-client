@@ -1,15 +1,6 @@
-"use client";
-
-import { useSelector, useDispatch } from "react-redux";
-import type { RootState } from '@/app/rtk-base/store';
-import { increment, decrement, reset } from "@/app/rtk-base/slices/counter-slice";
 import PageRoutesIndicator from "../components/PageRoutesIndicator";
 
 export default function Home() {
-
-const count = useSelector((state: RootState) => state.counter.value);
-  const dispatch = useDispatch();
-
   return (
   <>
    <main className="p-6 min-h-screen flex flex-col">

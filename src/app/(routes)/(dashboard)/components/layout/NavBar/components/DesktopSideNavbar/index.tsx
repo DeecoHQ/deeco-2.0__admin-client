@@ -8,34 +8,60 @@ import {
   HiMiniWrenchScrewdriver,
   HiMiniViewColumns,
   HiClipboardDocumentList,
-  HiBuildingStorefront,
   HiQueueList,
   HiChartBar,
   HiCog6Tooth,
   HiPlusCircle,
+  HiMiniQueueList,
+  HiChatBubbleLeftRight,
+  HiBuildingStorefront,
 } from 'react-icons/hi2';
 
 const sidebarLinks = [
-  { path: '/', label: 'Home', icon: <HiHome className="text-[18px]" /> },
-  { path: '/orders', label: 'Orders', icon: <HiShoppingBag className="text-[18px]" /> },
-  { path: '/products', label: 'Products', icon: <HiMiniSquaresPlus className="text-[18px]" /> },
-  { path: '/customers', label: 'Customers', icon: <HiUserGroup className="text-[18px]" /> },
-  { path: '/brands', label: 'Brands', icon: <HiMiniViewColumns className="text-[18px]" /> },
-  { path: '/categories', label: 'Categories', icon: <HiBuildingStorefront className="text-[18px]" /> },
-  { path: '/analytics', label: 'Analytics', icon: <HiChartBar className="text-[18px]" /> },
+  { path: '/', label: 'Home', icon: <HiHome className='text-[18px]' /> },
+  {
+    path: '/orders',
+    label: 'Orders',
+    icon: <HiShoppingBag className='text-[18px]' />,
+  },
+  {
+    path: '/products',
+    label: 'Products',
+    icon: <HiMiniViewColumns className='text-[18px]' />,
+  },
+  {
+    path: '/customers',
+    label: 'Customers',
+    icon: <HiUserGroup className='text-[18px]' />,
+  },
+  {
+    path: '/brands',
+    label: 'Brands',
+    icon: <HiMiniQueueList className='text-[18px]' />,
+  },
+  {
+    path: '/categories',
+    label: 'Categories',
+    icon: <HiMiniSquaresPlus className='text-[18px]' />,
+  },
+  {
+    path: '/analytics',
+    label: 'Analytics',
+    icon: <HiChartBar className='text-[18px]' />,
+  },
 ];
 
 const AdminSidebar = () => {
   return (
-    <aside className="fixed top-16 left-0 w-[250px] h-full bg-[#f6f6f7] rounded-tl-4xl border-gray-200 flex flex-col">
+    <aside className='fixed top-16 left-0 w-[250px] h-full bg-[#f6f6f7] rounded-tl-4xl border-gray-200 flex flex-col'>
       {/* Main content */}
-      <div className="h-[80%] px-3 py-4">
-        <ul className="flex flex-col gap-y-1">
+      <div className='h-[80%] px-3'>
+        <ul className='flex flex-col gap-y-1'>
           {sidebarLinks.map(({ path, label, icon }) => (
             <li key={path}>
               <Link
                 href={path}
-                className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-200 text-sm font-medium text-gray-800"
+                className='flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-200 text-sm text-gray-800'
               >
                 {icon}
                 <span>{label}</span>
@@ -44,21 +70,37 @@ const AdminSidebar = () => {
           ))}
         </ul>
 
-        {/* Divider sections */}
-        <div className="mt-6 text-xs font-semibold text-gray-500 px-3">Sales channels</div>
-        <ul className="mt-2 flex flex-col gap-y-1">
+        <div className='mt-6 text-xs font-semibold text-gray-500 px-3'>
+          Store Front
+        </div>
+        <ul className='mt-2 flex flex-col gap-y-1'>
           <li>
             <Link
-              href="/online-store"
-              className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-200 text-sm text-gray-800"
+              href='/online-store'
+              className='flex gap-3 px-3 py-2 rounded-md text-sm text-gray-800 items-center'
             >
-              <HiBuildingStorefront className="text-[18px]" />
-              <span>Online Store</span>
+              <HiBuildingStorefront className='text-[20px] cursor-pointer text-[#2F2F30]' />
+              <span>Visit Store</span>
             </Link>
           </li>
         </ul>
 
-        <div className="mt-6 text-xs font-semibold text-gray-500 px-3">Apps</div>
+        <div className='mt-6 text-xs font-semibold text-gray-500 px-3'>
+          Deeco Support
+        </div>
+        <ul className='mt-2 flex flex-col gap-y-1'>
+          <li>
+            <Link
+              href='/online-store'
+              className='flex gap-3 px-3 py-2 rounded-md text-sm text-gray-800 items-center'
+            >
+              <HiChatBubbleLeftRight className='text-[20px] cursor-pointer text-[#2F2F30]' />
+              <span>Start a chat</span>
+            </Link>
+          </li>
+        </ul>
+
+        {/*     <div className="mt-6 text-xs font-semibold text-gray-500 px-3">Apps</div>
         <ul className="mt-2 flex flex-col gap-y-1">
           <li>
             <Link
@@ -69,19 +111,24 @@ const AdminSidebar = () => {
               <span>Add</span>
             </Link>
           </li>
-        </ul>
+        </ul> */}
       </div>
 
       {/* Bottom settings */}
-      <div className="px-3 py-4 border-t border-gray-200">
+      <div className='px-3 py-4 border-t border-gray-200'>
         <Link
-          href="/settings"
-          className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-200 text-sm text-gray-800"
+          href='/settings'
+          className='flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-200 text-sm text-gray-800'
         >
-          <HiCog6Tooth className="text-[18px]" />
+          <HiCog6Tooth className='text-[18px]' />
           <span>Settings</span>
         </Link>
       </div>
+      <section className='px-3 w-full'>
+        <button className='py-3 px-3 bg-[#3cac84] text-white w-full rounded-[10px] text-[14px] text-center'>
+          Connect Wallet
+        </button>
+      </section>
     </aside>
   );
 };
