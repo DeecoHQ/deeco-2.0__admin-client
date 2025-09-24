@@ -14,7 +14,7 @@ const poppins_init = Poppins({
   weight: ['200', '300', '400', '500', '600', '700', '800', '900'],
 });
 
-const lato_init = Inter({
+const lato_init = Lato({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-lato',
