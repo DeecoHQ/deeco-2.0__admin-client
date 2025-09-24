@@ -4,7 +4,7 @@ import { Providers } from "@/app/rtk-base/providers";
 import { nunito_sans, poppins, lato } from './utils/font';
 
 export const metadata: Metadata = {
-  title: 'Deeco: The Best Way To Sell Online',
+  title: 'Deeco: The Best Way To Buy And Sell Online',
   description: 'Deeco Platform',
 };
 
