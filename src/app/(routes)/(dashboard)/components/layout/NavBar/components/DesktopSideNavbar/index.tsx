@@ -125,7 +125,7 @@ const AdminSidebar = () => {
         </Link>
       </div>
       <section className='px-3 w-full'>
-        <button className='py-3 px-3 bg-[#043D25] text-white w-full rounded-[10px] text-[14px] text-center'>
+        <button className='py-3 px-3 bg-[#3cac84] text-white w-full rounded-[10px] text-[14px] text-center'>
           Connect Wallet
         </button>
       </section>

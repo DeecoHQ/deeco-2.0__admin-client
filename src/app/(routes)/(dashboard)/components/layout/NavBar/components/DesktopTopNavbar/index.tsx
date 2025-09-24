@@ -4,19 +4,21 @@ import { HiMagnifyingGlass } from 'react-icons/hi2';
 import Logo from '@/app/assets/logo-white.png';
 import { FaRegBell } from 'react-icons/fa';
 import { BiMessageDetail } from 'react-icons/bi';
+import Link from 'next/link';
 
 const AdminTopBar = () => {
   return (
-    <header className='fixed top-0 left-0 right-0 py-2.5 bg-[#111213] text-white flex items-center justify-between px-4 shadow z-10'>
-      <div className='relative w-[100px] flex items-center'>
-        <Image
-          src={Logo}
-          alt='platform logo'
-          width={100}
-          height={50}
-          className='mx-auto'
-        />
-      </div>
+    <header className="fixed top-0 left-0 right-0 h-[65px] bg-[#021d12] text-white flex items-center justify-between px-4 shadow z-10">
+       <Link href="/" className="relative h-[32px] w-[120px] flex items-center">
+          <Image
+            src={Logo}
+            alt="platform logo"
+            fill
+            style={{ objectFit: "contain" }}
+            sizes="100px"
+            priority
+          />
+      </Link>
 
       {/* Middle: Search */}
       <div className='flex items-center w-[400px] max-w-md bg-[#303030] rounded-md px-3 py-1'>
@@ -46,7 +48,7 @@ const AdminTopBar = () => {
               <span>ikechukwupowei21@gmai...</span>
               <span>My Store</span>
             </div>
-            <div className='w-8 h-8 flex items-center justify-center rounded-full bg-green-500'>
+            <div className='w-8 h-8 flex items-center justify-center rounded-full bg-[#3cac84]'>
               MS
             </div>
           </div>

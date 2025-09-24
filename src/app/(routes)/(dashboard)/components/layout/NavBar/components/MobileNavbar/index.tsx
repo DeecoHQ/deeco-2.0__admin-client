@@ -29,15 +29,15 @@ function MobileNavBar(): JSX.Element {
                 className='w-6 h-6 cursor-pointer text-[#2F2F30]'
               />
             </div>
-            <div className='relative h-[40px] w-[80px] flex items-center'>
-              <Image
-                src={Logo}
-                alt='platform logo'
-                width={80}
-                height={40}
-                className='mx-auto'
-              />
-            </div>
+              <Link href='/' className='relative h-[40px] w-[80px] flex items-center'>
+                <Image
+                  src={Logo}
+                  alt='platform logo'
+                  width={80}
+                  height={40}
+                  className='mx-auto'
+                />
+            </Link>
           </section>
 
           <section className='flex gap-x-3 items-center'>
@@ -53,7 +53,7 @@ function MobileNavBar(): JSX.Element {
               </div>
               <HiBell className='text-[25px] cursor-pointer text-[#2F2F30]' />
             </Link>
-            <button className='py-2 px-3 bg-[#043D25] text-white rounded-[10px] text-[12px]'>
+            <button className='py-2 px-3 bg-[#3cac84] text-white rounded-[10px] text-[12px]'>
               Connect Wallet
             </button>
           </section>

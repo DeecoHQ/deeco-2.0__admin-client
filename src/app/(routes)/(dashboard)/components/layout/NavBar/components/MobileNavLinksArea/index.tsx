@@ -66,7 +66,7 @@ const MobileNavLinksArea = ({ toggleSideBar }: NavLinksProps) => {
           <section className='flex items-center gap-4'>
             {/* User avatar + Store */}
             <div className='flex items-center gap-2'>
-              <div className='w-10 h-10 flex items-center justify-center rounded-full bg-green-500 font-semibold'>
+              <div className='w-10 h-10 flex items-center justify-center rounded-full bg-[#3cac84] font-semibold'>
                 MS
               </div>
               <div className='flex flex-col justify-center text-[12px]'>
