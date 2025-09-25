@@ -3,7 +3,6 @@
 import PageRoutesIndicator from "../components/PageRoutesIndicator";
 import { useAppDispatch } from "@/app/rtk-base/hook";
 import { showNotificationModal } from "@/app/rtk-base/slices/globalModalSlice";
-import GlobalModal from "@/app/global-components/GlobalModal";
 import {
   HiMiniUsers,
   HiMiniSquaresPlus,
@@ -48,9 +47,19 @@ const dispatch = useAppDispatch();
               </div>
               <div className="relative after:content-[''] after:w-[6px] after:h-[6px] after:bg-black after:rounded-full after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 sm:after:top-1/2 sm:after:left-auto sm:after:-right-4 sm:after:-translate-y-1/2 sm:after:translate-x-0 last:after:hidden">
                 Just Sell!!!
-              </div>
-            </section>
           </div>
+            </section>
+              </div>
+              {/* Demo Buttons to trigger modal */}
+                <div className="text-center">
+                    <button
+                    onClick={openModal}
+                    className="px-4 py-2 bg-green-600 cursor-pointer text-white rounded-md"
+                  >
+                  Open Modal
+                  </button>
+                </div>
+             
           <section className='md:w-[75%] lg:w-[60%] mx-auto grid sm:grid-cols-2 xl:grid-cols-3 gap-4 py-5'>
             <div className='data-card bg-slate-100 flex flex-col p-4 rounded-[7px]'>
               <section className='flex gap-y-12 flex-col'>
