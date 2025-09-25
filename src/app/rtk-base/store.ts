@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import entityFormReducer from "@/app/rtk-base/slices/entityFormSlice";
+import notificationModalReducer from "@/app/rtk-base/slices/globalModalSlice";
 
 export const store = configureStore({
   reducer: {
-    formModal: entityFormReducer
+    formModal: entityFormReducer,
+    notificationModal: notificationModalReducer,
   },
 });
 
