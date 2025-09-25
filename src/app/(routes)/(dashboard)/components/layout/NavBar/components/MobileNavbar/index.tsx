@@ -7,14 +7,29 @@ import Image from 'next/image';
 import Logo from '@/app/assets/logo-black.png';
 import { HiClock, HiBell, HiOutlineBars3BottomLeft } from 'react-icons/hi2';
 import { BiMessageDetail } from 'react-icons/bi';
+import { useWallet } from '@/app/lib/wallet/walletProvider';
 import Link from 'next/link';
 
 function MobileNavBar(): JSX.Element {
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
+   const { connect, disconnect, address } = useWallet();
 
   const toggleSideBar = (): void => {
     setIsNavOpen(!isNavOpen);
   };
+
+    const [loading, setLoading] = useState(false);
+  
+    const handleConnect = async () => {
+      try {
+        setLoading(true); 
+        await connect();
+      } catch (err) {
+        console.error('Wallet connect error:', err);
+      } finally {
+        setLoading(false); 
+      }
+    };
 
   return (
     <>
@@ -53,9 +68,26 @@ function MobileNavBar(): JSX.Element {
               </div>
               <HiBell className='text-[25px] cursor-pointer text-[#2F2F30]' />
             </Link>
-            <button className='py-2 px-3 bg-[#3cac84] text-white rounded-[10px] text-[12px]'>
-              Connect Wallet
-            </button>
+              <div className="px-3 w-full mb-4">
+                {address ? (
+                  <button
+                    onClick={disconnect}
+                    className="py-3 px-3 bg-red-500 text-white w-full rounded-[10px] text-[14px] text-center cursor-pointer"
+                  >
+                    Disconnect ({address.slice(0, 6)}...{address.slice(-4)})
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleConnect}
+                    className="cursor-pointer py-3 px-3 bg-[#3cac84] text-white w-full rounded-[10px] text-[14px] text-center flex items-center justify-center gap-2"
+                  >
+                    {loading && (
+                      <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                    )}
+                    {loading ? 'Connecting...' : 'Connect Wallet'}
+                  </button>
+                )}
+              </div>
           </section>
         </div>
       </div>
