@@ -1,47 +1,67 @@
 "use client";
 
-import PageRoutesIndicator from "../components/PageRoutesIndicator";
-import { MdLibraryAdd, MdOutlineNoteAlt } from "react-icons/md";
-import { useDispatch } from "react-redux";
-import { showModal } from "@/app/rtk-base/slices/entityFormSlice";
-import FloatingActionGroup from "./../components/FloatingActionGroup";
+import { useState } from 'react';
+import PageRoutesIndicator from '../components/PageRoutesIndicator';
+import { MdLibraryAdd, MdOutlineNoteAlt } from 'react-icons/md';
+import { useDispatch } from 'react-redux';
+import { showModal } from '@/app/rtk-base/slices/entityFormSlice';
+import FloatingActionGroup from './../components/FloatingActionGroup';
+import ContractDetailsPopOver from '../components/ContractDetailsPopOver';
 
 export default function ProductsPage() {
   const dispatch = useDispatch();
+  const [isContractDeployed, setIsContractDeployed] = useState(false);
 
   return (
     <main className='min-h-screen flex flex-col'>
-      <PageRoutesIndicator
-        pageRoutes='Admin / Products Page'
-        pageTitle='Products Page'
-      />
+      <section className='border-b-[1px] pb-3 border-gray-200 flex justify-between'>
+        <PageRoutesIndicator
+          pageRoutes='Admin / Products Page'
+          pageTitle='Products Page'
+        />
+        <ContractDetailsPopOver
+          contractName='Products Contract'
+          contractAddress='0x1234567890abcdef1234567890abcdef12345678'
+          status='active'
+          blockExplorerLink='https://etherscan.io/address/0x1234567890abcdef1234567890abcdef12345678'
+        />
+      </section>
 
-      <div className='flex-1 flex items-center justify-center'>
+      <div
+        className={`${
+          !isContractDeployed ? 'flex' : 'hidden'
+        } flex items-center justify-center mt-[200px]`}
+      >
         <div className='text-center'>
           <h2 className='text-2xl font-semibold mb-2'>Products Overview</h2>
           <p className='text-gray-600'>
-            This is some dummy text for the Products page.
+            You have not activated the product management feature
           </p>
+          <button className='mt-[30px] px-8 py-3 bg-[#043D25] rounded-[7px] text-white cursor-pointer'>
+            Activate Feature
+          </button>
         </div>
       </div>
 
       {/* ✅ Reusable Floating Buttons */}
-      <FloatingActionGroup
-        actions={[
-          {
-            icon: <MdOutlineNoteAlt size={32} />,
-            onClick: () =>
-              dispatch(showModal({ type: 'update', entity: 'products' })),
-            label: 'Update Products',
-          },
-          {
-            icon: <MdLibraryAdd size={32} />,
-            onClick: () =>
-              dispatch(showModal({ type: 'create', entity: 'products' })),
-            label: 'Create Products',
-          },
-        ]}
-      />
+      <section className={`${isContractDeployed ? 'flex' : 'hidden'}`}>
+        <FloatingActionGroup
+          actions={[
+            {
+              icon: <MdOutlineNoteAlt size={32} />,
+              onClick: () =>
+                dispatch(showModal({ type: 'update', entity: 'products' })),
+              label: 'Update Products',
+            },
+            {
+              icon: <MdLibraryAdd size={32} />,
+              onClick: () =>
+                dispatch(showModal({ type: 'create', entity: 'products' })),
+              label: 'Create Products',
+            },
+          ]}
+        />
+      </section>
     </main>
   );
 }

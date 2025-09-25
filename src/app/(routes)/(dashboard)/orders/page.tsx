@@ -1,27 +1,42 @@
 'use client';
 
+import { useState } from 'react';
+import ContractDetailsPopOver from '../components/ContractDetailsPopOver';
 import PageRoutesIndicator from '../components/PageRoutesIndicator';
 // import { MdLibraryAdd, MdOutlineNoteAlt } from "react-icons/md";
-// import { useDispatch } from "react-redux";
-// import { showModal } from "@/app/rtk-base/slices/entityFormSlice";
-// import FloatingActionGroup from "./../components/FloatingActionGroup";
 
 export default function OrdersPage() {
   // const dispatch = useDispatch();
+  const [isContractDeployed, setIsContractDeployed] = useState(false);
 
   return (
     <main className='min-h-screen flex flex-col'>
-      <PageRoutesIndicator
-        pageRoutes='Admin / Orders Page'
-        pageTitle='Orders Page'
-      />
+      <section className='border-b-[1px] pb-3 border-gray-200 flex justify-between'>
+        <PageRoutesIndicator
+          pageRoutes='Admin / Orders Page'
+          pageTitle='Orders Page'
+        />
+        <ContractDetailsPopOver
+          contractName='Order Management Contract'
+          contractAddress='0x1234567890abcdef1234567890abcdef12345678'
+          status='active'
+          blockExplorerLink='https://etherscan.io/address/0x1234567890abcdef1234567890abcdef12345678'
+        />
+      </section>
 
-      <div className='flex-1 flex items-center justify-center'>
+      <div
+        className={`${
+          !isContractDeployed ? 'flex' : 'hidden'
+        } flex items-center justify-center mt-[200px]`}
+      >
         <div className='text-center'>
-          <h2 className='text-2xl font-semibold mb-2'>Orders Overview</h2>
+          <h2 className='text-2xl font-semibold mb-2'>Order Management</h2>
           <p className='text-gray-600'>
-            This is some dummy text for the Orders page.
+            You have not activated the order management feature
           </p>
+          <button className='mt-[30px] px-8 py-3 bg-[#043D25] rounded-[7px] text-white cursor-pointer'>
+            Activate Feature
+          </button>
         </div>
       </div>
     </main>

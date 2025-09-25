@@ -9,7 +9,7 @@ export default function SignUpPage() {
       <div className='absolute inset-0 bg-gradient-to-b from-black/60 to-black/90'></div>
 
       {/* Content */}
-      <main className='page-content w-full relative pt-12 pb-16 mb-20 sm:mb-32 mx-3 px-3 rounded-[10px] border sm:w-[400px] sm:mx-auto bg-white'>
+      <main className='page-content relative pt-24 pb-16 sm:pt-12 sm:mb-32 min-h-screen sm:min-h-[100px] px-3 rounded-[10px] border w-full sm:w-[400px] sm:mx-auto bg-white'>
         <div className='flex flex-col sm:px-3 gap-8'>
           <section>
             <Image
@@ -25,7 +25,7 @@ export default function SignUpPage() {
             <div className='full-name input-group flex flex-col mb-6 text-[14px] sm:text-[14px]'>
               <label htmlFor='full-name'>Full name</label>
               <input
-                className='mt-2 px-3 py-2 border outline-none rounded'
+                className='mt-2 px-3 py-3 border-gray-300 border outline-none rounded'
                 type='text'
                 required
                 placeholder='please input your full name'
@@ -35,7 +35,7 @@ export default function SignUpPage() {
             <div className='email input-group flex flex-col mb-6 text-[14px] sm:text-[14px]'>
               <label htmlFor='email'>Email</label>
               <input
-                className='mt-2 px-3 py-2 border outline-none rounded'
+                className='mt-2 px-3 py-3 border-gray-300 border outline-none rounded'
                 type='email'
                 required
                 placeholder='please add your email address'
@@ -45,7 +45,7 @@ export default function SignUpPage() {
             <div className='password input-group flex flex-col mb-6 text-[14px] sm:text-[14px]'>
               <label htmlFor='password'>Password</label>
               <input
-                className='mt-2 px-3 py-2 border outline-none rounded'
+                className='mt-2 px-3 py-3 border-gray-300 border outline-none rounded'
                 type='password'
                 required
                 placeholder='please input your password'
@@ -55,7 +55,7 @@ export default function SignUpPage() {
             <div className='confirm-password input-group flex flex-col mb-6 text-[14px] sm:text-[14px]'>
               <label htmlFor='confirm-password'>Confirm password</label>
               <input
-                className='mt-2 px-3 py-2 border outline-none rounded'
+                className='mt-2 px-3 py-3 border-gray-300 border outline-none rounded'
                 type='password'
                 required
                 placeholder='re-enter password to confirm'

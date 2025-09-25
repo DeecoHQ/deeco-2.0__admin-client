@@ -10,14 +10,17 @@ export default function Home() {
   return (
     <>
       <main className='min-h-screen flex flex-col'>
-        <PageRoutesIndicator
-          pageRoutes='Admin / Dashboard Home'
-          pageTitle='Dashboard Home'
-        />
-        <div className='w-full pt-12 md:mt-20'>
+        <section className='border-b-[1px] pb-3 border-gray-200'>
+          <PageRoutesIndicator
+            pageRoutes='Admin / Dashboard Home'
+            pageTitle='Dashboard Home'
+          />
+        </section>
+        <div className='w-full pt-12 pb-20 md:mt-20'>
           <div className='text-center'>
             <h2 className='text-3xl p-4 md:text-4xl font-semibold mb-2 leading-[40px] sm:leading-[50px]'>
-              The best way to sell anything online <br /> right in your hands!!!
+              The best way to sell anything online. <br /> Right in your
+              hands!!!
             </h2>
             <section className='mt-4 mb-4 flex flex-col sm:flex-row items-center justify-center sm:space-x-8 space-y-4 sm:space-y-0'>
               <div className="relative after:content-[''] after:w-[6px] after:h-[6px] after:bg-black after:rounded-full after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 sm:after:top-1/2 sm:after:left-auto sm:after:-right-4 sm:after:-translate-y-1/2 sm:after:translate-x-0 last:after:hidden">
