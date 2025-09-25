@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/app/rtk-base/hook";
 import { hideModal } from "@/app/rtk-base/slices/entityFormSlice";
 import Overlay from "@/app/global-components/OverlayComponent";
 import { HiOutlineX } from "react-icons/hi";
-import OrdersForm from "@/app/(routes)/(dashboard)/components/OrderForm";
+// import OrdersForm from "@/app/(routes)/(dashboard)/components/OrderForm";
 import ProductForm from "@/app/(routes)/(dashboard)/components/ProductForm";
 import CategoriesForm from "@/app/(routes)/(dashboard)/components/CategoryForm";
 import BrandsForm from "@/app/(routes)/(dashboard)/components/BrandForm";
@@ -19,8 +19,8 @@ export default function FormModal() {
 
   const renderForm = () => {
     switch (entity) {
-      case "orders":
-        return <OrdersForm type={type} />;
+      // case "orders":
+      //   return <OrdersForm type={type} />;
       case "products":
         return <ProductForm type={type} />;
       case "categories":

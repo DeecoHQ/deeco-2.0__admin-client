@@ -8,16 +8,16 @@ import Link from 'next/link';
 
 const AdminTopBar = () => {
   return (
-    <header className="fixed top-0 left-0 right-0 h-[65px] bg-[#021d12] text-white flex items-center justify-between px-4 shadow z-10">
-       <Link href="/" className="relative h-[32px] w-[120px] flex items-center">
-          <Image
-            src={Logo}
-            alt="platform logo"
-            fill
-            style={{ objectFit: "contain" }}
-            sizes="100px"
-            priority
-          />
+    <header className='fixed top-0 left-0 right-0 py-2.5 bg-[#021d12] text-white flex items-center justify-between px-4 shadow z-10'>
+      <Link href='/' className='relative h-[32px] w-[120px] flex items-center'>
+        <Image
+          src={Logo}
+          alt='platform logo'
+          fill
+          style={{ objectFit: 'contain' }}
+          sizes='100px'
+          priority
+        />
       </Link>
 
       {/* Middle: Search */}
