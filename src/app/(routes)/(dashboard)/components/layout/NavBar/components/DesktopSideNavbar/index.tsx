@@ -41,7 +41,7 @@ const AdminSidebar = () => {
   };
 
   return (
-    <aside className="fixed top-16 left-0 w-[250px] h-full bg-[#f6f6f7] rounded-tl-4xl border-gray-200 flex flex-col">
+    <aside className='fixed pt-16 left-0 w-[250px] h-full bg-[#f6f6f7] rounded-tl-4xl border-gray-200 flex flex-col'>
       {/* Main content */}
       <div className="h-[80%] px-3">
         <ul className="flex flex-col gap-y-1">
