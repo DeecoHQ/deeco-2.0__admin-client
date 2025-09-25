@@ -11,6 +11,10 @@
   "dependencies": {
     "@headlessui/react": "^2.2.8",
     "@reduxjs/toolkit": "^2.9.0",
+    "@reown/appkit": "^1.8.6",
+    "@reown/appkit-common": "^1.8.6",
+    "@reown/appkit-universal-connector": "^1.8.6",
+    "ethers": "^6.15.0",
     "next": "15.5.3",
     "react": "19.1.0",
     "react-dom": "19.1.0",
