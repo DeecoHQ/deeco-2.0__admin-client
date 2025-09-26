@@ -55,13 +55,14 @@ const SignUpForm = () => {
       return;
     }
 
-    const formData = new FormData();
-    formData.append('name', signUpForm.name);
-    formData.append('email', signUpForm.email);
-    formData.append('password', signUpForm.password);
+   const payload = {
+      name: signUpForm.name, 
+      email: signUpForm.email,
+      password: signUpForm.password,
+    };
 
     try {
-      const resultAction = await dispatch(handleSignUp(formData));
+      const resultAction = await dispatch(handleSignUp(payload));
 
       if (handleSignUp.fulfilled.match(resultAction)) {
         toast.success('Account created successfully!');

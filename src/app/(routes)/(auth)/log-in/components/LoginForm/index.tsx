@@ -16,38 +16,44 @@ export type ApiError = {
 };
 
 export default function LoginForm() {
-  const dispatch = useAppDispatch();
-  const router = useRouter();
-  const [loginForm, setLoginForm] = useState({ email: '', password: '' });
-  const { isLoading } = useAppSelector((store: RootState) => store.auth);
+ const dispatch = useAppDispatch();
+const router = useRouter();
+const [loginForm, setLoginForm] = useState({ email: '', password: '' });
+const { isLoading } = useAppSelector((store: RootState) => store.auth);
 
-  async function loginUser(event: React.MouseEvent<HTMLButtonElement>) {
-    event.preventDefault();
+async function loginUser(event: React.MouseEvent<HTMLButtonElement>) {
+  event.preventDefault();
 
-    if (!loginForm.email || !loginForm.password) {
-      toast.error('Please fill in all fields');
-      return;
-    }
-
-    try {
-      const response = await dispatch(handleLogin(loginForm));
-
-      const loginResponse = response.payload as
-        | { data?: { response?: boolean; message?: string } }
-        | undefined;
-
-      if (handleLogin.fulfilled.match(response) && loginResponse?.data?.response) {
-        toast.success('Login successful!');
-        setLoginForm({ email: '', password: '' });
-        router.push('/');
-      } else {
-        toast.error(loginResponse?.data?.message || 'Invalid credentials. Please try again.');
-      }
-    } catch (error) {
-      const err = error as ApiError;
-      toast.error(err?.response?.data?.message || 'Something went wrong!');
-    }
+  if (!loginForm.email || !loginForm.password) {
+    toast.error('Please fill in all fields');
+    return;
   }
+
+  try {
+    // ✅ Send JSON payload
+    const payload = {
+      email: loginForm.email,
+      password: loginForm.password,
+    };
+
+    const response = await dispatch(handleLogin(payload));
+
+    const loginResponse = response.payload as
+      | { data?: { response?: boolean; message?: string } }
+      | undefined;
+
+    if (handleLogin.fulfilled.match(response) && loginResponse?.data?.response) {
+      toast.success('Login successful!');
+      setLoginForm({ email: '', password: '' });
+      router.push('/');
+    } else {
+      toast.error(loginResponse?.data?.message || 'Invalid credentials. Please try again.');
+    }
+  } catch (error) {
+    const err = error as ApiError;
+    toast.error(err?.response?.data?.message || 'Something went wrong!');
+  }
+}
 
   return (
     <form>
