@@ -17,6 +17,7 @@ import {
   HiMiniQueueList,
   HiChatBubbleLeftRight,
 } from 'react-icons/hi2';
+import { useAppDispatch, useAppSelector } from '@/app/rtk-base/store';
 import { FaRegBell } from 'react-icons/fa';
 import { BiMessageDetail } from 'react-icons/bi';
 
@@ -59,6 +60,7 @@ type NavLinksProps = {
 };
 
 const MobileNavLinksArea = ({ toggleSideBar }: NavLinksProps) => {
+  const userInfo = useAppSelector((state) => state.auth.localStorageUserData);
   return (
     <aside className='py-4 px-3'>
       <div className='text-[12px] flex justify-end'>
@@ -67,10 +69,16 @@ const MobileNavLinksArea = ({ toggleSideBar }: NavLinksProps) => {
             {/* User avatar + Store */}
             <div className='flex items-center gap-2'>
               <div className='w-10 h-10 flex items-center justify-center rounded-full bg-[#3cac84] font-semibold'>
-                MS
+                {userInfo?.name
+                ? userInfo.name
+                    .split(' ')
+                    .map((n) => n[0])
+                    .join('')
+                    .toUpperCase()
+                : 'MS'}
               </div>
               <div className='flex flex-col justify-center text-[12px]'>
-                <span className='font-medium'>ikechukwupowei@...</span>
+                 <span className="truncate">{userInfo?.email || 'No email'}</span>
                 <span className='font-medium'>My Store</span>
               </div>
             </div>
