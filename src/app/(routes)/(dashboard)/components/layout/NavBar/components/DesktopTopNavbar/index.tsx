@@ -1,5 +1,6 @@
 'use client';
 import Image from 'next/image';
+import { useAppDispatch, useAppSelector } from '@/app/rtk-base/store';
 import { HiMagnifyingGlass } from 'react-icons/hi2';
 import Logo from '@/app/assets/logo-white.png';
 import { FaRegBell } from 'react-icons/fa';
@@ -7,6 +8,7 @@ import { BiMessageDetail } from 'react-icons/bi';
 import Link from 'next/link';
 
 const AdminTopBar = () => {
+  const userInfo = useAppSelector((state) => state.auth.localStorageUserData);
   return (
     <header className='fixed top-0 left-0 right-0 py-2.5 bg-[#021d12] text-white flex items-center justify-between px-4 shadow z-10'>
       <Link href='/' className='relative h-[32px] w-[120px] flex items-center'>
@@ -42,14 +44,19 @@ const AdminTopBar = () => {
 
         {/* User avatar + Store */}
         <section className='flex items-center gap-4'>
-          {/* User avatar + Store */}
           <div className='flex items-center gap-4'>
-            <div className='flex flex-col justify-center text-[12px]'>
-              <span>ikechukwupowei21@gmai...</span>
+            <div className='flex flex-col justify-center text-[12px] max-w-[150px] truncate'>
+              <span className="truncate">{userInfo?.email || 'No email'}</span>
               <span>My Store</span>
             </div>
             <div className='w-8 h-8 flex items-center justify-center rounded-full bg-[#3cac84]'>
-              MS
+              {userInfo?.name
+                ? userInfo.name
+                    .split(' ')
+                    .map((n) => n[0])
+                    .join('')
+                    .toUpperCase()
+                : 'MS'}
             </div>
           </div>
         </section>

@@ -1,8 +1,6 @@
-"use client";
-
-import Link from "next/link";
 import Image from 'next/image';
 import Logo from '@/app/assets/main-logo_vector-and-text.png';
+import LoginForm from "./components/LoginForm";
 
 export default function LoginPage() {
   return (
@@ -25,43 +23,7 @@ export default function LoginPage() {
               Log into your account
             </div>
           </section>
-          <form>
-            <div className='input-group flex flex-col mb-6 text-[14px] sm:text-[14px]'>
-              <label htmlFor='email'>Email</label>
-              <input
-                className='mt-2 px-3 py-3 border-gray-300 border outline-none rounded-[10px]'
-                type='email'
-                required
-                placeholder='please input your username'
-                id='email'
-              />
-            </div>
-
-            <div className='input-group flex flex-col mb-6 text-[14px] sm:text-[14px]'>
-              <label htmlFor='password'>Password</label>
-              <input
-                className='mt-2 px-3 py-3 border-gray-300 border outline-none rounded-[10px]'
-                type='password'
-                required
-                placeholder='please input your password'
-                id='password'
-              />
-            </div>
-
-            <button
-              type='submit'
-              className='submit poppins text-center bg-[#043D25] py-3 text-[14px] sm:text-[14px] text-white rounded-[10px] w-full'
-            >
-              Submit
-            </button>
-
-            <p className='text-center text-[14px] sm:text-[14px] mt-4'>
-              New to Deeco?{' '}
-              <Link href='/sign-up' className='underline text-purple-800'>
-                sign-up instead
-              </Link>
-            </p>
-          </form>
+          <LoginForm />
         </div>
       </main>
     </section>

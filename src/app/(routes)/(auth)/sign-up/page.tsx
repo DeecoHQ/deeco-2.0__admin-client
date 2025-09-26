@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from 'next/image';
 import Logo from '@/app/assets/main-logo_vector-and-text.png';
+import SignUpForm from "./components/SignUpForm";
 
 export default function SignUpPage() {
   return (
@@ -21,60 +22,7 @@ export default function SignUpPage() {
             />
             <div className='poppins mt-6 text-center'>Create a new account</div>
           </section>
-          <form>
-            <div className='full-name input-group flex flex-col mb-6 text-[14px] sm:text-[14px]'>
-              <label htmlFor='full-name'>Full name</label>
-              <input
-                className='mt-2 px-3 py-3 border-gray-300 border outline-none rounded'
-                type='text'
-                required
-                placeholder='please input your full name'
-                id='fullName'
-              />
-            </div>
-            <div className='email input-group flex flex-col mb-6 text-[14px] sm:text-[14px]'>
-              <label htmlFor='email'>Email</label>
-              <input
-                className='mt-2 px-3 py-3 border-gray-300 border outline-none rounded'
-                type='email'
-                required
-                placeholder='please add your email address'
-                id='email'
-              />
-            </div>
-            <div className='password input-group flex flex-col mb-6 text-[14px] sm:text-[14px]'>
-              <label htmlFor='password'>Password</label>
-              <input
-                className='mt-2 px-3 py-3 border-gray-300 border outline-none rounded'
-                type='password'
-                required
-                placeholder='please input your password'
-                id='password'
-              />
-            </div>
-            <div className='confirm-password input-group flex flex-col mb-6 text-[14px] sm:text-[14px]'>
-              <label htmlFor='confirm-password'>Confirm password</label>
-              <input
-                className='mt-2 px-3 py-3 border-gray-300 border outline-none rounded'
-                type='password'
-                required
-                placeholder='re-enter password to confirm'
-                id='confirm-password'
-              />
-            </div>
-            <button
-              type='button'
-              className='submit poppins text-center bg-[#043D25] py-3 text-[14px] sm:text-[14px] text-white rounded w-full'
-            >
-              Submit
-            </button>
-            <p className='text-center text-[14px] sm:text-[14px] mt-4'>
-              Have an account?{' '}
-              <Link href='/log-in' className='underline text-purple-800'>
-                log-in instead
-              </Link>{' '}
-            </p>
-          </form>
+        <SignUpForm />
         </div>
       </main>
     </section>
