@@ -22,7 +22,9 @@ export default function FormModal() {
       // case "orders":
       //   return <OrdersForm type={type} />;
       case "products":
-        return <ProductForm type={type} />;
+       case "products":
+      return <ProductForm mode={type} productId={modalData.productId} />; 
+
       case "categories":
         return <CategoriesForm type={type} />;
       case "brands":
