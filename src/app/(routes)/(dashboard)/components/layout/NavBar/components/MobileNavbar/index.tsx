@@ -44,14 +44,17 @@ function MobileNavBar(): JSX.Element {
                 className='w-6 h-6 cursor-pointer text-[#2F2F30]'
               />
             </div>
-              <Link href='/' className='relative h-[40px] w-[80px] flex items-center'>
-                <Image
-                  src={Logo}
-                  alt='platform logo'
-                  width={80}
-                  height={40}
-                  className='mx-auto'
-                />
+            <Link
+              href='/'
+              className='relative h-[40px] w-[80px] flex items-center'
+            >
+              <Image
+                src={Logo}
+                alt='platform logo'
+                width={80}
+                height={40}
+                className='mx-auto'
+              />
             </Link>
           </section>
 
@@ -68,26 +71,26 @@ function MobileNavBar(): JSX.Element {
               </div>
               <HiBell className='text-[25px] cursor-pointer text-[#2F2F30]' />
             </Link>
-              <div className="px-3 w-full mb-4">
-                {address ? (
-                  <button
-                    onClick={disconnect}
-                    className="py-3 px-3 bg-red-500 text-white w-full rounded-[10px] text-[14px] text-center cursor-pointer"
-                  >
-                    Disconnect ({address.slice(0, 6)}...{address.slice(-4)})
-                  </button>
-                ) : (
-                  <button
-                    onClick={handleConnect}
-                    className="cursor-pointer py-3 px-3 bg-[#3cac84] text-white w-full rounded-[10px] text-[14px] text-center flex items-center justify-center gap-2"
-                  >
-                    {loading && (
-                      <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-                    )}
-                    {loading ? 'Connecting...' : 'Connect Wallet'}
-                  </button>
-                )}
-              </div>
+            <div className='pl-3 w-full'>
+              {address ? (
+                <button
+                  onClick={disconnect}
+                  className='py-2.5 px-3 bg-red-500 text-white w-full rounded-[10px] text-[14px] text-center cursor-pointer'
+                >
+                  Disconnect ({address.slice(0, 6)}...{address.slice(-4)})
+                </button>
+              ) : (
+                <button
+                  onClick={handleConnect}
+                  className='cursor-pointer py-2.5 px-3 bg-[#3cac84] text-white w-full rounded-[10px] text-[14px] text-center flex items-center justify-center gap-2'
+                >
+                  {loading && (
+                    <span className='w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin'></span>
+                  )}
+                  {loading ? 'Connecting...' : 'Connect Wallet'}
+                </button>
+              )}
+            </div>
           </section>
         </div>
       </div>
