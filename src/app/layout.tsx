@@ -8,34 +8,41 @@ import { WalletProvider } from "@/app/lib/wallet/walletProvider";
 import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://deeco-platform-files-bucket.s3.eu-north-1.amazonaws.com"), 
-  title: "Deeco: The Best Way To Buy And Sell Anything Online",
-  description: "Deeco Platform",
+  metadataBase: new URL('https://usedeeco.xyz'),
+  title: 'Deeco: The Best Way To Buy And Sell Anything Online',
+  description:
+    'Buy and sell anything easily and securely on Deeco — the next-generation online marketplace.',
 
   openGraph: {
-    title: "Deeco: The Best Way To Buy And Sell Anything Online",
-    description: "Deeco Platform",
-    url: "https://deeco-platform-files-bucket.s3.eu-north-1.amazonaws.com",
-    siteName: "Deeco",
+    title: 'Deeco: The Best Way To Buy And Sell Anything Online',
+    description:
+      'Buy and sell anything easily and securely on Deeco — the next-generation online marketplace.',
+    url: 'https://usedeeco.xyz',
+    siteName: 'Deeco',
     images: [
       {
-        url: "/opengraph-image.jpg",
+        url: 'https://deeco-platform-files-bucket.s3.eu-north-1.amazonaws.com/Deeco-01x.jpg',
         width: 1200,
         height: 630,
-        alt: "Deeco Platform Preview",
+        alt: 'Deeco Platform Preview',
       },
     ],
-    type: "website",
+    type: 'website',
+    locale: 'en_US',
   },
 
   twitter: {
-    card: "summary_large_image",
-    title: "Deeco: The Best Way To Buy And Sell Anything Online",
-    description: "Deeco Platform",
-    images: ["/opengraph-image.jpg"], 
-    creator: "@YourTwitterHandle",
+    card: 'summary_large_image',
+    title: 'Deeco: The Best Way To Buy And Sell Anything Online',
+    description:
+      'Buy and sell anything easily and securely on Deeco — the next-generation online marketplace.',
+    images: [
+      'https://deeco-platform-files-bucket.s3.eu-north-1.amazonaws.com/Deeco-01x.jpg',
+    ],
+    creator: '@zedlabsHQ', // replace with your actual handle or remove
   },
 };
+
 
 export default function RootLayout({
   children,

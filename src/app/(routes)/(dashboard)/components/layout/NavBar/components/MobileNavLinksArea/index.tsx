@@ -1,4 +1,6 @@
 'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import {
   HiHome,
@@ -60,7 +62,45 @@ type NavLinksProps = {
 };
 
 const MobileNavLinksArea = ({ toggleSideBar }: NavLinksProps) => {
-  const userInfo = useAppSelector((state) => state.auth.localStorageUserData);
+  // const userInfo = useAppSelector((state) => state.auth.localStorageUserData);
+
+  // after relaod, state is cleared, so get userInfo from local storage not from state.
+
+  type ProfileImage = {
+    image_url?: string;
+    last_fetch?: string;
+  };
+
+  type UserInfoSpecs = {
+    name: string;
+    email: string;
+    profile_image?: ProfileImage | null;
+  };
+
+  const [userInfo, setUserInfo] = useState<UserInfoSpecs>({
+    profile_image: null,
+    name: '',
+    email: '',
+  });
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const storedData = localStorage.getItem('userInfo');
+        if (storedData) {
+          const parsedData = JSON.parse(storedData);
+          setUserInfo({
+            profile_image: parsedData.profile_image || null,
+            name: parsedData.name || '',
+            email: parsedData.email || '',
+          });
+        }
+      } catch (error) {
+        console.error('Error parsing myAppUserInfo from localStorage:', error);
+      }
+    }
+  }, []);
+
   return (
     <aside className='py-4 px-3'>
       <div className='text-[12px] flex justify-end'>
@@ -70,16 +110,18 @@ const MobileNavLinksArea = ({ toggleSideBar }: NavLinksProps) => {
             <div className='flex items-center gap-2'>
               <div className='w-10 h-10 flex items-center justify-center rounded-full bg-[#3cac84] font-semibold'>
                 {userInfo?.name
-                ? userInfo.name
-                    .split(' ')
-                    .map((n) => n[0])
-                    .join('')
-                    .toUpperCase()
-                : 'MS'}
+                  ? userInfo.name
+                      .split(' ')
+                      .map((n) => n[0])
+                      .join('')
+                      .toUpperCase()
+                  : 'MS'}
               </div>
               <div className='flex flex-col justify-center text-[12px]'>
-                 <span className="truncate">{userInfo?.email || 'No email'}</span>
-                <span className='font-medium'>My Store</span>
+                <span className='truncate'>
+                  {userInfo?.email || '---- ---- ---- ----'}
+                </span>
+                <span>---- ----</span>
               </div>
             </div>
           </section>

@@ -124,21 +124,21 @@ if (file) {
 
     try {
       if (mode === "create") {
-        await dispatch(createProduct(formData))
+        await dispatch(createProduct(formData));
 
         // ✅ Reset
-        setFormDataState({
-          product_name: "",
-          product_type: "",
-          product_description: "",
-          real_price: "",
-          discount_price: "",
-          stock: "",
-          is_free_delivery_available: false,
-          rating: "",
-        });
-        setFile(null);
-        setIsFilePicked(false);
+        // setFormDataState({
+        //   product_name: "",
+        //   product_type: "",
+        //   product_description: "",
+        //   real_price: "",
+        //   discount_price: "",
+        //   stock: "",
+        //   is_free_delivery_available: false,
+        //   rating: "",
+        // });
+        // setFile(null);
+        // setIsFilePicked(false);
       } else if (mode === "update" && productId) {
         await dispatch(updateProduct({ id: productId, formData }));
         toast.success("Product updated successfully!");

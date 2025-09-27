@@ -11,10 +11,12 @@ export default function BrandsPage() {
 
   return (
     <main className='min-h-screen flex flex-col'>
-      <PageRoutesIndicator
-        pageRoutes='Admin / Categories Page'
-        pageTitle='Categories Page'
-      />
+      <section className='border-b-[1px] pb-1 border-gray-200'>
+        <PageRoutesIndicator
+          pageRoutes='Admin / Categories'
+          pageTitle='Categories'
+        />
+      </section>
 
       <div className='flex-1 flex items-center justify-center'>
         <div className='text-center'>

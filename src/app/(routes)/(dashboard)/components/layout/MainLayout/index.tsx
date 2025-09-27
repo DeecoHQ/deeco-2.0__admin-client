@@ -16,7 +16,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => (
         <DesktopSideNavbar />
         <DesktopTopNavbar />
       </div>
-      <main className='relative w-full lg:w-[calc(100%-250px)] mt-10 lg:mt-0 lg:ml-[250px] pt-6 lg:pt-8 px-3 sm:px-[20px] overflow-y-auto lg:top-[40px]'>
+      <main className='relative w-full lg:w-[calc(100%-250px)] mt-10 lg:mt-0 lg:ml-[250px] pt-4 lg:pt-6 px-3 sm:px-[20px] overflow-y-auto lg:top-[40px]'>
         {children}
       </main>
     </div>

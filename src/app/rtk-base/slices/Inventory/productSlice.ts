@@ -86,7 +86,12 @@ export const createProduct = createAsyncThunk(
       const currentToken = localStorage.getItem("accessToken");
       console.log("Current access token before request:", currentToken);
 
-      const response = await axiosInstance.post(url, productData);
+      const response = await axiosInstance.post(url, productData, {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
 
       // Log full response from server
       console.log("Response from createProduct:", response);
