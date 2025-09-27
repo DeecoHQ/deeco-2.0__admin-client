@@ -6,11 +6,11 @@ import { MdLibraryAdd, MdOutlineNoteAlt } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
 import { showModal } from '@/app/rtk-base/slices/entityFormSlice';
 import FloatingActionGroup from './../components/FloatingActionGroup';
-import ContractDetailsPopOver from '../components/ContractDetailsPopOver';
+// import ContractDetailsPopOver from '../components/ContractDetailsPopOver';
 
 export default function ProductsPage() {
   const dispatch = useDispatch();
-  const [isContractDeployed, setIsContractDeployed] = useState(false);
+  // const [isContractDeployed, setIsContractDeployed] = useState(false);
 
   return (
     <main className='min-h-screen flex flex-col'>
@@ -18,16 +18,16 @@ export default function ProductsPage() {
         <PageRoutesIndicator
           pageRoutes='Admin / Products Page'
           pageTitle='Products Page'
-        />
-        <ContractDetailsPopOver
+        /> 
+        {/* <ContractDetailsPopOver
           contractName='Products Contract'
           contractAddress='0x1234567890abcdef1234567890abcdef12345678'
           status='active'
           blockExplorerLink='https://etherscan.io/address/0x1234567890abcdef1234567890abcdef12345678'
-        />
+        /> */}
       </section>
 
-      <div
+      {/* <div
         className={`${
           !isContractDeployed ? 'flex' : 'hidden'
         } flex items-center justify-center mt-[200px]`}
@@ -41,27 +41,33 @@ export default function ProductsPage() {
             Activate Feature
           </button>
         </div>
-      </div>
+      </div> */}
 
       {/* ✅ Reusable Floating Buttons */}
-      <section className={`${isContractDeployed ? 'flex' : 'hidden'}`}>
-        <FloatingActionGroup
-          actions={[
-            {
-              icon: <MdOutlineNoteAlt size={32} />,
-              onClick: () =>
-                dispatch(showModal({ type: 'update', entity: 'products' })),
-              label: 'Update Products',
-            },
-            {
-              icon: <MdLibraryAdd size={32} />,
-              onClick: () =>
-                dispatch(showModal({ type: 'create', entity: 'products' })),
-              label: 'Create Products',
-            },
-          ]}
-        />
-      </section>
+      {/* <section className={`${isContractDeployed ? 'flex' : 'hidden'}`}> */}
+    <FloatingActionGroup
+      actions={[
+        {
+          icon: <MdOutlineNoteAlt size={32} />,
+          onClick: () => {
+            dispatch(showModal({
+              type: "update",
+              entity: "products",
+              productId: 1, 
+            }));
+          },
+          label: "Update Product",
+        },
+        {
+          icon: <MdLibraryAdd size={32} />,
+          onClick: () =>
+            dispatch(showModal({ type: "create", entity: "products" })),
+          label: "Create Product",
+        },
+      ]}
+    />    
+
+      {/* </section> */}
     </main>
   );
 }

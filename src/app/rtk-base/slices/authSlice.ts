@@ -1,11 +1,7 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import toast from 'react-hot-toast';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
 import axiosInstance from '@/app/utils/axiosConfig';
-
-
-// export type UserType = 'staff' | 'admin' | 'student';
 
 export interface ProfileImage {
   image_url?: string;
@@ -15,17 +11,15 @@ export interface ProfileImage {
 export interface Level {
   id: number;
   name: string;
-  // add other fields from your Level model here if needed
 }
 
 export interface User {
-  id: number; // Django auto-increment PK
+  id: number;
   name?: string;
   email: string;
   password?: string | null;
   access_token?: string | null;
   refresh_token?: string | null;
-  // user_type: UserType;
   level?: Level | null;
   student_id?: string | null;
   staff_id?: string | null;
@@ -35,33 +29,29 @@ export interface User {
   profile_image?: ProfileImage | null;
   is_admin: boolean;
   is_active: boolean;
-  created_at: string; // ISO datetime string
-  updated_at: string; // ISO datetime string
+  created_at: string;
+  updated_at: string;
 }
 
-export interface LocalStorageUserDataSpecs {
+export interface StoredUserData {
+  id: string;
   name: string;
   email: string;
-  access_token: string | null;
-  refresh_token?: string | null;
-  // user_type?: UserType;
-  level?: Level | null;
-  student_id?: string | null;
-  staff_id?: string | null;
-  age?: string | null;
-  address?: string | null;
-  phone_number?: string | null;
-  profile_image?: ProfileImage | null;
-  is_admin?: boolean;
-  is_active?: boolean;
+  is_admin: boolean;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+  access_token: string;
+  refresh_token: string;
 }
 
 type InitialStateSpecs = {
   isLoading: boolean;
   userData: User | null;
-  localStorageUserData: LocalStorageUserDataSpecs | null;
-  userEmail: string | null | undefined;
-  userAccessToken: string | null | undefined;
+  localStorageUserData: StoredUserData | null;
+  userEmail: string | null;
+  userAccessToken: string | null;
+  userRefreshToken: string | null;
 };
 
 const initialState: InitialStateSpecs = {
@@ -69,22 +59,14 @@ const initialState: InitialStateSpecs = {
   userData: null,
   userEmail: null,
   userAccessToken: null,
+  userRefreshToken: null,
   localStorageUserData: null,
 };
 
 type LoginSpecs = {
-  //   name: string;
   email: string;
   password: string;
 };
-
-// export type SignUpDataSpecs = {
-//   name: string;
-//   email: string;
-//   password: string;
-//   //   confirmPassword: string;
-//   profileImage: File | null;
-// };
 
 export const handleLogin = createAsyncThunk(
   'auth/handleLogin',
@@ -92,36 +74,30 @@ export const handleLogin = createAsyncThunk(
     try {
       toast.dismiss();
 
-      if (loginData.email == '' || loginData.password == '') {
+      if (!loginData.email || !loginData.password) {
         toast.error('Please fill in all fields', { duration: 3000 });
         return;
       }
 
-      const loginUrl = `${process.env.NEXT_PUBLIC_API_URL_BASE}/auth/log-in`;
+      const loginUrl = `${process.env.NEXT_PUBLIC_API_URL_BASE}/api/v1/auth/log-in`;
 
       const loadingId = toast.loading('processing request...');
 
       const response = await axiosInstance.post(loginUrl, loginData);
 
-      console.log(response);
+      const { access_token, refresh_token, user_profile } = response.data.response;
 
-      const { access_token, user_profile } = response.data.response;
-
-      // Dispatching setUserInfo with both accessToken and userInfo
       thunkAPI.dispatch(
         setUserInfo({
-          userInfo: { ...user_profile, access_token: access_token },
+          userInfo: { ...user_profile, access_token, refresh_token },
         })
       );
 
       toast.dismiss(loadingId);
-      console.log(user_profile);
+      toast.success('Login successful!', { duration: 4000 });
 
       return response;
     } catch (error) {
-      // Check if `error` is an AxiosError
-      console.log(error);
-
       toast.dismiss();
       const errorMessage =
         axios.isAxiosError(error) && error.response?.data?.message
@@ -135,41 +111,31 @@ export const handleLogin = createAsyncThunk(
 
 export const handleSignUp = createAsyncThunk(
   'auth/handleStaffRegistration',
-  async (signUpData: FormData, thunkAPI) => {
+  async (signUpData: { email: string; password: string }, thunkAPI) => {
     try {
       toast.dismiss();
 
-      //   const { name, email, password, confirmPassword } = signUpData;
+      const signUpUrl = `${process.env.NEXT_PUBLIC_API_URL_BASE}/api/v1/auth/register`;
 
-      const signUpUrl = `${process.env.NEXT_PUBLIC_API_URL_BASE}/auth/staff-registration`;
+      const loadingId = toast.loading('processing request...');
 
-      toast.loading('processing request...');
+      const response = await axiosInstance.post(signUpUrl, signUpData, {
+        headers: { 'Content-Type': 'application/json' },
+      });
 
-      const response = await axiosInstance.post(signUpUrl, signUpData);
+      const { access_token, refresh_token, user_profile } = response.data.response;
 
-      console.log(response);
-
-      const { access_token, user_profile } = response.data.response;
-
-      // Dispatching setUserInfo with both accessToken and userInfo
       thunkAPI.dispatch(
         setUserInfo({
-          userInfo: { ...user_profile, access_token: access_token },
+          userInfo: { ...user_profile, access_token, refresh_token },
         })
       );
 
-      toast.dismiss();
-
-      toast.success(
-        'Registration was successful. Kindly wait for an admin to approve and grant you access.',
-        { duration: 7000 }
-      );
+      toast.dismiss(loadingId);
+      toast.success('Registration successful!', { duration: 5000 });
 
       return response;
     } catch (error) {
-      // Check if `error` is an AxiosError
-      console.log(error);
-
       toast.dismiss();
       const errorMessage =
         axios.isAxiosError(error) && error.response?.data?.message
@@ -187,35 +153,52 @@ const authSlice = createSlice({
   reducers: {
     setUserInfo: (
       state,
-      action: PayloadAction<{
-        userInfo: LocalStorageUserDataSpecs;
-      }>
+      action: PayloadAction<{ userInfo: StoredUserData }>
     ) => {
       state.localStorageUserData = action.payload.userInfo;
       state.userAccessToken = action.payload.userInfo.access_token;
+      state.userRefreshToken = action.payload.userInfo.refresh_token || null;
+      state.userEmail = action.payload.userInfo.email;
 
       try {
-        localStorage.setItem(
-          'accessToken',
-          action.payload.userInfo.access_token || ''
-        );
-        localStorage.setItem('email', action.payload.userInfo?.email || '');
-        localStorage.setItem(
-          'userInfo',
-          JSON.stringify(action.payload.userInfo)
-        );
+        localStorage.setItem('accessToken', action.payload.userInfo.access_token || '');
+        localStorage.setItem('refreshToken', action.payload.userInfo.refresh_token || '');
+        localStorage.setItem('email', action.payload.userInfo.email || '');
+        localStorage.setItem('userInfo', JSON.stringify(action.payload.userInfo));
+        localStorage.setItem('accessTokenSetTime', Date.now().toString());
       } catch (error) {
         console.error('Error saving user info to localStorage:', error);
       }
     },
+
+    setAccessToken: (state, action: PayloadAction<string>) => {
+      state.userAccessToken = action.payload;
+      try {
+        localStorage.setItem('accessToken', action.payload);
+        localStorage.setItem('accessTokenSetTime', Date.now().toString());
+      } catch (error) {
+        console.error('Error saving access token:', error);
+      }
+    },
+
     clearUserInfo: (state) => {
       try {
-        localStorage.clear();
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('email');
+        localStorage.removeItem('userInfo');
+        localStorage.removeItem('accessTokenSetTime');
+
+        state.localStorageUserData = null;
+        state.userAccessToken = null;
+        state.userRefreshToken = null;
+        state.userEmail = null;
       } catch (error) {
         console.error('Error clearing user info:', error);
       }
     },
-    toggleIsLoading: (state, action) => {
+
+    toggleIsLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
   },
@@ -241,7 +224,7 @@ const authSlice = createSlice({
   },
 });
 
-export const { clearUserInfo, setUserInfo, toggleIsLoading } =
+export const { clearUserInfo, setUserInfo, toggleIsLoading, setAccessToken } =
   authSlice.actions;
 
 export default authSlice.reducer;

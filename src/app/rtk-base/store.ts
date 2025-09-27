@@ -3,12 +3,14 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import entityFormReducer from "@/app/rtk-base/slices/entityFormSlice";
 import notificationModalReducer from "@/app/rtk-base/slices/globalModalSlice";
 import AuthReducer from "@/app/rtk-base/slices/authSlice";
+import ProductReducer from "@/app/rtk-base/slices/Inventory/productSlice";
 
 export const store = configureStore({
   reducer: {
     formModal: entityFormReducer,
     notificationModal: notificationModalReducer,
-    auth:AuthReducer
+    auth:AuthReducer,
+    products:ProductReducer,
   },
 });
 
