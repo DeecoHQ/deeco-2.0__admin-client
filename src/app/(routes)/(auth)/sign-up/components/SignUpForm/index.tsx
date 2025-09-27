@@ -7,6 +7,7 @@ import { toast } from 'react-hot-toast';
 import { useAppDispatch, useAppSelector } from '@/app/rtk-base/store';
 import { RootState } from '@/app/rtk-base/store';
 import { handleSignUp } from '@/app/rtk-base/slices/authSlice';
+import { HiMiniEyeSlash, HiMiniEye } from 'react-icons/hi2';
 
 export type ApiError = {
   response?: {
@@ -20,6 +21,9 @@ const SignUpForm = () => {
   const dispatch = useAppDispatch();
   const { isLoading } = useAppSelector((store: RootState) => store.auth);
   const router = useRouter();
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [signUpForm, setSignUpForm] = useState({
     name: '',
@@ -55,8 +59,8 @@ const SignUpForm = () => {
       return;
     }
 
-   const payload = {
-      name: signUpForm.name, 
+    const payload = {
+      name: signUpForm.name,
       email: signUpForm.email,
       password: signUpForm.password,
     };
@@ -77,11 +81,15 @@ const SignUpForm = () => {
         router.push('/');
       } else {
         const err = resultAction.payload as ApiError;
-        toast.error(err?.response?.data?.message || 'Signup failed. Please try again.');
+        toast.error(
+          err?.response?.data?.message || 'Signup failed. Please try again.'
+        );
       }
     } catch (error) {
       const err = error as ApiError;
-      toast.error(err?.response?.data?.message || 'Something went wrong!');
+      toast.error(
+        err?.response?.data?.message || 'Something went wrong!'
+      );
     }
   }
 
@@ -122,11 +130,11 @@ const SignUpForm = () => {
             required
           />
         </div>
-        <div className='password input-group flex flex-col mb-6 text-[14px] sm:text-[14px]'>
+        <div className='password input-group flex flex-col mb-6 text-[14px] sm:text-[14px] relative'>
           <label htmlFor='password'>Password</label>
           <input
             className='mt-2 px-3 py-3 border-gray-300 border outline-none rounded'
-            type='password'
+            type={showPassword ? 'text' : 'password'}
             placeholder='please input your password'
             id='password'
             value={signUpForm.password}
@@ -138,12 +146,22 @@ const SignUpForm = () => {
             }
             required
           />
+          <span
+            className='absolute right-3 top-[42px] cursor-pointer'
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? (
+              <HiMiniEyeSlash className='text-gray-500' />
+            ) : (
+              <HiMiniEye className='text-gray-500' />
+            )}
+          </span>
         </div>
-        <div className='confirm-password input-group flex flex-col mb-6 text-[14px] sm:text-[14px]'>
+        <div className='confirm-password input-group flex flex-col mb-6 text-[14px] sm:text-[14px] relative'>
           <label htmlFor='confirm-password'>Confirm password</label>
           <input
             className='mt-2 px-3 py-3 border-gray-300 border outline-none rounded'
-            type='password'
+            type={showConfirmPassword ? 'text' : 'password'}
             required
             placeholder='re-enter password to confirm'
             id='confirm-password'
@@ -155,6 +173,16 @@ const SignUpForm = () => {
               })
             }
           />
+          <span
+            className='absolute right-3 top-[42px] cursor-pointer'
+            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+          >
+            {showConfirmPassword ? (
+              <HiMiniEyeSlash className='text-gray-500' />
+            ) : (
+              <HiMiniEye className='text-gray-500' />
+            )}
+          </span>
         </div>
         <button
           type='button'
