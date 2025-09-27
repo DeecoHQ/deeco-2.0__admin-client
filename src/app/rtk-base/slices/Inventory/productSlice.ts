@@ -88,6 +88,9 @@ export const createProduct = createAsyncThunk(
 
       const response = await axiosInstance.post(url, productData, {
         withCredentials: true,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       });
 
       // Log full response from server
