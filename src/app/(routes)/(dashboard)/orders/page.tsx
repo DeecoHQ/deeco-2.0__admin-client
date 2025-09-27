@@ -11,11 +11,8 @@ export default function OrdersPage() {
 
   return (
     <main className='min-h-screen flex flex-col'>
-      <section className='border-b-[1px] pb-3 border-gray-200 flex justify-between'>
-        <PageRoutesIndicator
-          pageRoutes='Admin / Orders Page'
-          pageTitle='Orders Page'
-        />
+      <section className='border-b-[1px] pb-1 border-gray-200 flex justify-between'>
+        <PageRoutesIndicator pageRoutes='Admin / Orders' pageTitle='Orders' />
         <ContractDetailsPopOver
           contractName='Order Management Contract'
           contractAddress='0x1234567890abcdef1234567890abcdef12345678'
