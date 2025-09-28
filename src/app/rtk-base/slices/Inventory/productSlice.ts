@@ -6,6 +6,8 @@ import toast from "react-hot-toast";
 import { RootState } from "../../store";
 import { setAccessToken } from "../authSlice";
 import axiosInstance from "@/app/utils/axiosConfig";
+import { mutate } from "swr";
+import { hideModal } from "../entityFormSlice";
 
 // ========================
 // Types
@@ -20,6 +22,7 @@ export interface ApiError {
 
 export interface Product {
   id: number;
+  store_identifier?: string;
   product_name: string;
   product_type: string;
   product_description: string;
@@ -51,6 +54,7 @@ export interface Product {
 interface ProductState {
   products: Product[];
   product?: Product;
+  store_identifier?: string | null;
   loading: boolean;
   error?: string;
 }
@@ -58,81 +62,66 @@ interface ProductState {
 const initialState: ProductState = {
   products: [],
   product: undefined,
+  store_identifier:
+    typeof window !== "undefined"
+      ? localStorage.getItem("storeIdentifier")
+      : null,
   loading: false,
   error: undefined,
 };
 
-// const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL_BASE;
-
 // ========================
-// Thunks
+// Thunks (unchanged)
 // ========================
-export const createProduct = createAsyncThunk(
-  "products/create",
-  async (productData: FormData, thunkAPI) => {
-    try {
-      toast.dismiss();
-      toast.loading("Creating product...");
+export const createProduct = createAsyncThunk<
+  Product,
+  { productData: FormData; store_identifier?: string },
+  { state: RootState }
+>("products/create", async ({ productData, store_identifier }, thunkAPI) => {
+  try {
+    toast.dismiss();
+    toast.loading("Creating product...");
 
-      const url = `/api/v1/inventory/products/create-product`;
+    const url = `/api/v1/inventory/products/create-product`;
 
-      // Log FormData keys and values
-      console.log("FormData to send:");
-      productData.forEach((value, key) => {
-        console.log(key, value);
-      });
+    const response = await axiosInstance.post(url, productData, {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
 
-      // Log current access token before request
-      const currentToken = localStorage.getItem("accessToken");
-      console.log("Current access token before request:", currentToken);
+    const data = response.data.response;
 
-      const response = await axiosInstance.post(url, productData, {
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+    const finalIdentifier =
+      store_identifier || thunkAPI.getState().products.store_identifier;
 
-      // Log full response from server
-      console.log("Response from createProduct:", response);
-
-      const data = response.data.response;
-
-      // Log if access_token exists in response
-      if (data.access_token) {
-        console.log("New access token received:", data.access_token);
-        thunkAPI.dispatch(setAccessToken(data.access_token));
-      } else {
-        console.log("No access token in response.");
-      }
-
-      toast.dismiss();
-      toast.success("Product created successfully", { duration: 3000 });
-
-      return data.product as Product;
-    } catch (error) {
-      console.error("Error caught in createProduct thunk:", error);
-
-      toast.dismiss();
-      const errorMessage =
-        axios.isAxiosError(error) && error.response?.data?.message
-          ? error.response.data.message
-          : "An unexpected error occurred.";
-      toast.error(errorMessage);
-
-      // Log error response for detailed debugging
-      if (axios.isAxiosError(error) && error.response) {
-        console.log("Axios error response headers:", error.response.headers);
-        console.log("Axios error response data:", error.response.data);
-        console.log("Axios error response status:", error.response.status);
-      }
-
-      return thunkAPI.rejectWithValue(errorMessage);
+    if (finalIdentifier) {
+      mutate(
+        `${process.env.NEXT_PUBLIC_API_URL_BASE}/api/v1/inventory/products/get-user-products?store_identifier=${finalIdentifier}`
+      );
     }
+
+    if (data.access_token) thunkAPI.dispatch(setAccessToken(data.access_token));
+
+    toast.dismiss();
+    toast.success("Product created successfully", { duration: 3000 });
+
+    if (response.data.response.product) {
+      thunkAPI.dispatch(hideModal());
+    }
+
+    return data.product as Product;
+  } catch (error) {
+    toast.dismiss();
+    const errorMessage =
+      axios.isAxiosError(error) && error.response?.data?.message
+        ? error.response.data.message
+        : "An unexpected error occurred.";
+    toast.error(errorMessage);
+    return thunkAPI.rejectWithValue(errorMessage);
   }
-);
-
-
+});
 
 export const getProductById = createAsyncThunk<
   Product,
@@ -140,10 +129,8 @@ export const getProductById = createAsyncThunk<
   { state: RootState }
 >("products/getById", async (id, { getState, dispatch, rejectWithValue }) => {
   try {
-    const { userAccessToken } = getState().auth;
-    const response = await axios.get(
+    const response = await axiosInstance.get(
       `${process.env.NEXT_PUBLIC_API_URL_BASE}/api/v1/inventory/products/get-product/${id}`,
-      { headers: { Authorization: `Bearer ${userAccessToken}` } }
     );
 
     const data = response.data.response;
@@ -161,52 +148,39 @@ export const getProductById = createAsyncThunk<
   }
 });
 
-export const getAllProducts = createAsyncThunk<
-  Product[],
-  void,
-  { state: RootState }
->("products/getAll", async (_, { getState, dispatch, rejectWithValue }) => {
-  try {
-    const { userAccessToken } = getState().auth;
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL_BASE}/api/v1/inventory/products/get-all-products`,
-      { headers: { Authorization: `Bearer ${userAccessToken}` } }
-    );
-
-    const data = response.data.response;
-    if (data.access_token) dispatch(setAccessToken(data.access_token));
-
-    return data.products as Product[];
-  } catch (error) {
-    toast.dismiss();
-    const errorMessage =
-      axios.isAxiosError(error) && error.response?.data?.message
-        ? error.response.data.message
-        : "Failed to fetch products";
-    toast.error(errorMessage);
-    return rejectWithValue(errorMessage);
-  }
-});
-
 export const updateProduct = createAsyncThunk<
   Product,
-  { id: number; formData: FormData },
+  { id: number; formData: FormData; store_identifier?: string },
   { state: RootState }
->("products/update", async ({ id, formData }, { getState, dispatch, rejectWithValue }) => {
+>("products/update", async ({ id, formData, store_identifier }, { dispatch, rejectWithValue, getState }) => {
   try {
-    const { userAccessToken } = getState().auth;
-    console.log("Access Token being used:", userAccessToken);
-    const response = await axios.post(
+    toast.dismiss();
+    toast.loading("Updating product...");
+
+    const response = await axiosInstance.post(
       `${process.env.NEXT_PUBLIC_API_URL_BASE}/api/v1/inventory/products/update-product/${id}`,
       formData,
-      { headers: { Authorization: `Bearer ${userAccessToken}` } }
+      { headers: { "Content-Type": "multipart/form-data" } }
     );
 
     const data = response.data.response;
-    if (data.access_token) dispatch(setAccessToken(data.access_token));
+
+    const finalIdentifier =
+      store_identifier || getState().products.store_identifier;
+
+    if (finalIdentifier) {
+      mutate(
+        `${process.env.NEXT_PUBLIC_API_URL_BASE}/api/v1/inventory/products/get-user-products?store_identifier=${finalIdentifier}`
+      );
+    }
 
     toast.dismiss();
     toast.success("Product updated successfully");
+
+    if (response.data.response.product) {
+      dispatch(hideModal());
+    }
+
     return data.product as Product;
   } catch (error) {
     toast.dismiss();
@@ -219,23 +193,38 @@ export const updateProduct = createAsyncThunk<
   }
 });
 
+// Delete Product
 export const deleteProduct = createAsyncThunk<
   number,
-  number,
+  { id: number; store_identifier?: string }, 
   { state: RootState }
->("products/delete", async (id, { getState, dispatch, rejectWithValue }) => {
+>("products/delete", async ({ id, store_identifier }, { dispatch, rejectWithValue, getState }) => {
   try {
-    const { userAccessToken } = getState().auth;
-    const response = await axios.delete(
+    toast.dismiss();
+    toast.loading("Deleting product...");
+
+    const response = await axiosInstance.delete(
       `${process.env.NEXT_PUBLIC_API_URL_BASE}/api/v1/inventory/products/delete-product/${id}`,
-      { headers: { Authorization: `Bearer ${userAccessToken}` } }
     );
 
     const data = response.data.response;
-    if (data.access_token) dispatch(setAccessToken(data.access_token));
+
+    const finalIdentifier =
+      store_identifier || getState().products.store_identifier;
+
+    if (finalIdentifier) {
+      mutate(
+        `${process.env.NEXT_PUBLIC_API_URL_BASE}/api/v1/inventory/products/get-user-products?store_identifier=${finalIdentifier}`
+      );
+    }
 
     toast.dismiss();
     toast.success("Product deleted successfully");
+
+    if (response.data.response.product) {
+      dispatch(hideModal());
+    }
+
     return data.product_id as number;
   } catch (error) {
     toast.dismiss();
@@ -247,8 +236,6 @@ export const deleteProduct = createAsyncThunk<
     return rejectWithValue(errorMessage);
   }
 });
-
-
 // ========================
 // Slice
 // ========================
@@ -258,6 +245,18 @@ const productSlice = createSlice({
   reducers: {
     clearProductError: (state) => {
       state.error = undefined;
+    },
+    setStoreIdentifier: (state, action: PayloadAction<string>) => {
+      state.store_identifier = action.payload;
+      try {
+        if (action.payload) {
+          localStorage.setItem("store_identifier", action.payload);
+        } else {
+          localStorage.removeItem("store_identifier");
+        }
+      } catch (error) {
+        console.error("Error persisting store_identifier:", error);
+      }
     },
   },
   extraReducers: (builder) => {
@@ -283,18 +282,6 @@ const productSlice = createSlice({
         state.product = action.payload;
       })
       .addCase(getProductById.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload as string;
-      })
-      // Get All
-      .addCase(getAllProducts.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(getAllProducts.fulfilled, (state, action: PayloadAction<Product[]>) => {
-        state.loading = false;
-        state.products = action.payload;
-      })
-      .addCase(getAllProducts.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       })
@@ -328,5 +315,7 @@ const productSlice = createSlice({
   },
 });
 
-export const { clearProductError } = productSlice.actions;
+export const { clearProductError, setStoreIdentifier } = productSlice.actions;
+export const selectStoreIdentifier = (state: RootState) =>
+  state.products.store_identifier;
 export default productSlice.reducer;

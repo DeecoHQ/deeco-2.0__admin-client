@@ -2,7 +2,7 @@
 
 import PageRoutesIndicator from "../components/PageRoutesIndicator";
 import { useAppDispatch } from "@/app/rtk-base/hook";
-import { showNotificationModal } from "@/app/rtk-base/slices/globalModalSlice";
+import { showNotificationModal } from "@/app/rtk-base/slices/notificationModalSlice";
 import {
   HiMiniUsers,
   HiMiniSquaresPlus,

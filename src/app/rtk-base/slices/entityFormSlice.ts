@@ -7,7 +7,9 @@ type ModalEntity = "orders" | "products" | "categories" | "brands";
 interface ModalData {
   type: ModalType;
   entity: ModalEntity;
-  productId?: number; 
+  extraProps?: {
+    productId?: number; // <-- move productId here
+  };
 }
 
 
