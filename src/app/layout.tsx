@@ -9,14 +9,12 @@ import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://usedeeco.xyz'),
-  title: 'Deeco: The Best Way To Buy And Sell Anything Online',
-  description:
-    'Buy and sell anything easily and securely on Deeco — the next-generation online marketplace.',
+  title: 'Deeco: The Best Way To Buy Sell Anything Online',
+  description: 'The on-chain engine for global e-commerce.',
 
   openGraph: {
-    title: 'Deeco: The Best Way To Buy And Sell Anything Online',
-    description:
-      'Buy and sell anything easily and securely on Deeco — the next-generation online marketplace.',
+    title: 'Deeco: The Best Way To Sell Anything Online',
+    description: 'The on-chain engine for global e-commerce.',
     url: 'https://usedeeco.xyz',
     siteName: 'Deeco',
     images: [
@@ -33,9 +31,8 @@ export const metadata: Metadata = {
 
   twitter: {
     card: 'summary_large_image',
-    title: 'Deeco: The Best Way To Buy And Sell Anything Online',
-    description:
-      'Buy and sell anything easily and securely on Deeco — the next-generation online marketplace.',
+    title: 'Deeco: The Best Way To Sell Anything Online',
+    description: 'The on-chain engine for global e-commerce.',
     images: [
       'https://deeco-platform-files-bucket.s3.eu-north-1.amazonaws.com/Deeco-01x.jpg',
     ],
