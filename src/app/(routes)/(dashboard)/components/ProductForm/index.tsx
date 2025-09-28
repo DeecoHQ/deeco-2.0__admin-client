@@ -8,14 +8,17 @@ import {
   getProductById,
 } from "@/app/rtk-base/slices/Inventory/productSlice";
 import toast from "react-hot-toast";
+import { selectStoreIdentifier } from "@/app/rtk-base/slices/Inventory/productSlice";
 
 type ProductFormProps = {
   mode: "create" | "update";
   productId?: number;
 };
 
+
 const ProductForm: React.FC<ProductFormProps> = ({ mode, productId }) => {
   const dispatch = useAppDispatch();
+  const store_identifier = useAppSelector(selectStoreIdentifier);
   const { product, loading } = useAppSelector((state) => state.products);
 
   // 👇 single form state (renamed to avoid redeclare issue)
@@ -111,47 +114,52 @@ const ProductForm: React.FC<ProductFormProps> = ({ mode, productId }) => {
 if (file) {
   formData.append('product_image', file); // 
 }
-    // Object.entries(formDataState).forEach(([key, value]) => {
-    //   formData.append(
-    //     key,
-    //     typeof value === "boolean" ? value.toString() : value
-    //   );
-    // });
-    // if (file) formData.append("product_image", file);
 
     console.log(formData);
     console.log(file);
 
-    try {
-      if (mode === "create") {
-        await dispatch(createProduct(formData));
+ try {
+  if (mode === "create") {
+    await dispatch(
+      createProduct({
+        productData: formData,
+        store_identifier: store_identifier || "", 
+      })
+    );
 
-        // ✅ Reset
-        // setFormDataState({
-        //   product_name: "",
-        //   product_type: "",
-        //   product_description: "",
-        //   real_price: "",
-        //   discount_price: "",
-        //   stock: "",
-        //   is_free_delivery_available: false,
-        //   rating: "",
-        // });
-        // setFile(null);
-        // setIsFilePicked(false);
-      } else if (mode === "update" && productId) {
-        await dispatch(updateProduct({ id: productId, formData }));
-        toast.success("Product updated successfully!");
-      }
-    } catch (err) {
-      console.error("Submit error:", err);
-      if (err instanceof Error) {
-        toast.error(err.message);
-      } else {
-        toast.error("Failed to submit");
-      }
-    }
-  };
+    // reset state after successful create
+    setFormDataState({
+      product_name: "",
+      product_type: "",
+      product_description: "",
+      real_price: "",
+      discount_price: "",
+      stock: "",
+      is_free_delivery_available: false,
+      rating: "",
+    });
+    setFile(null);
+    setIsFilePicked(false);
+
+  } else if (mode === "update" && productId) {
+    await dispatch(
+      updateProduct({
+        id: productId,
+        formData,
+        store_identifier: store_identifier || "", 
+      })
+    );
+
+  }
+} catch (err) {
+  console.error("Submit error:", err);
+  if (err instanceof Error) {
+    toast.error(err.message);
+  } else {
+    toast.error("Failed to submit");
+  }
+}
+  }
 
   return (
     <form onSubmit={handleSubmit} className="max-w-lg mx-auto p-4 space-y-4">

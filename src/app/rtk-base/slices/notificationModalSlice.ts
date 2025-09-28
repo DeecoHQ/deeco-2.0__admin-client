@@ -8,6 +8,7 @@ type NotificationModalState = {
   message: string;
   confirmText?: string;
   cancelText?: string;
+  extraData?: { productId?: number }; 
 };
 
 const initialState: NotificationModalState = {
