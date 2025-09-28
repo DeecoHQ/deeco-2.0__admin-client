@@ -26,7 +26,7 @@ export default function OrdersPage() {
           !isContractDeployed ? 'flex' : 'hidden'
         } flex items-center justify-center mt-[200px]`}
       >
-        <div className='text-center md:w-[80%] xl:w-[70%] md:mx-auto'>
+        <div className='text-center md:w-[70%] xl:w-[50%] md:mx-auto'>
           <h2 className='text-2xl font-semibold mb-2'>Order Management</h2>
           <p className='text-gray-600'>
             You have not activated the order management feature. <br /> Activate

@@ -37,12 +37,12 @@ export default function BrandsPage() {
       {/* ✅ Reusable Floating Buttons */}
       <FloatingActionGroup
         actions={[
-          {
-            icon: <MdOutlineNoteAlt size={32} className='hidden' />,
-            onClick: () =>
-              dispatch(showModal({ type: 'update', entity: 'categories' })),
-            label: 'Update Category',
-          },
+          // {
+          //   icon: <MdOutlineNoteAlt size={32} className='hidden' />,
+          //   onClick: () =>
+          //     dispatch(showModal({ type: 'update', entity: 'categories' })),
+          //   label: 'Update Category',
+          // },
           {
             icon: <MdLibraryAdd size={32} />,
             onClick: () =>

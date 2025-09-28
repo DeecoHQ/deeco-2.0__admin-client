@@ -133,12 +133,12 @@ const dispatch = useAppDispatch();
                   {/* <span className='text-[25px] sm:text-[30px] font-medium'>
                     1000
                   </span> */}
-                  <div className='h-[15px] mt-[15px] text-[14px]'>
+                  <div className='h-[15px] text-[14px]'>
                     +7 new orders in the last 24 hours
                   </div>
                 </div>
               </section>
-              <div className='mt-3'>
+              <div className='mt-3 translate-y-[25px]'>
                 <Link
                   href='/analytics'
                   className='inline-block px-5 py-1 rounded-md bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors'

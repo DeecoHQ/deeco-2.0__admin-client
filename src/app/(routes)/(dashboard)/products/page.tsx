@@ -86,20 +86,20 @@ function ProductsPage() {
       {/* Reusable Floating Buttons */}
       <FloatingActionGroup
         actions={[
+          // {
+          //   icon: <MdOutlineNoteAlt size={32} className='hidden' />,
+          //   onClick: () => {
+          //     // Here you need to pass a product ID. You could select the first product as default, or show a picker.
+          //     if (data?.products?.length) {
+          //       handleUpdateProcess(data.products[0].id); // Example: first product
+          //     } else {
+          //       toast.error('No products available to update');
+          //     }
+          //   },
+          //   label: 'Update Product',
+          // },
           {
-            icon: <MdOutlineNoteAlt size={32} />,
-            onClick: () => {
-              // Here you need to pass a product ID. You could select the first product as default, or show a picker.
-              if (data?.products?.length) {
-                handleUpdateProcess(data.products[0].id); // Example: first product
-              } else {
-                toast.error('No products available to update');
-              }
-            },
-            label: 'Update Product',
-          },
-          {
-            icon: <MdLibraryAdd size={32} className='hidden' />,
+            icon: <MdLibraryAdd size={32} />,
             onClick: () =>
               dispatch(showModal({ type: 'create', entity: 'products' })),
             label: 'Create Product',
