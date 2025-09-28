@@ -69,7 +69,6 @@ const SignUpForm = () => {
       const resultAction = await dispatch(handleSignUp(payload));
 
       if (handleSignUp.fulfilled.match(resultAction)) {
-        toast.success('Account created successfully!');
 
         setSignUpForm({
           name: '',

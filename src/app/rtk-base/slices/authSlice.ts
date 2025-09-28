@@ -1,3 +1,5 @@
+"use client";
+
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import toast from 'react-hot-toast';
 import axios from 'axios';
@@ -43,6 +45,7 @@ export interface StoredUserData {
   updated_at: string;
   access_token: string;
   refresh_token: string;
+  store_identifier?: string; // added here
 }
 
 type InitialStateSpecs = {
@@ -52,6 +55,7 @@ type InitialStateSpecs = {
   userEmail: string | null;
   userAccessToken: string | null;
   userRefreshToken: string | null;
+  storeIdentifier?: string; // added here
 };
 
 const initialState: InitialStateSpecs = {
@@ -61,6 +65,7 @@ const initialState: InitialStateSpecs = {
   userAccessToken: null,
   userRefreshToken: null,
   localStorageUserData: null,
+  storeIdentifier: undefined,
 };
 
 type LoginSpecs = {
@@ -80,19 +85,21 @@ export const handleLogin = createAsyncThunk(
       }
 
       const loginUrl = `/api/v1/auth/log-in`;
-
       const loadingId = toast.loading('processing request...');
-
       const response = await axiosInstance.post(loginUrl, loginData);
 
-      const { access_token, refresh_token, user_profile } =
-        response.data.response;
+      const { access_token, refresh_token, user_profile } = response.data.response;
 
       thunkAPI.dispatch(
         setUserInfo({
           userInfo: { ...user_profile, access_token, refresh_token },
         })
       );
+
+      // store store_identifier immediately if present
+      if (user_profile.store_identifier) {
+        thunkAPI.dispatch(setStoreIdentifier(user_profile.store_identifier));
+      }
 
       toast.dismiss(loadingId);
       toast.success('Login successful!', { duration: 4000 });
@@ -161,6 +168,10 @@ const authSlice = createSlice({
       state.userAccessToken = action.payload.userInfo.access_token;
       state.userRefreshToken = action.payload.userInfo.refresh_token || null;
       state.userEmail = action.payload.userInfo.email;
+      if (action.payload.userInfo.store_identifier) {
+        state.storeIdentifier = action.payload.userInfo.store_identifier;
+        localStorage.setItem('storeIdentifier', action.payload.userInfo.store_identifier);
+      }
 
       try {
         localStorage.setItem('accessToken', action.payload.userInfo.access_token || '');
@@ -183,6 +194,15 @@ const authSlice = createSlice({
       }
     },
 
+    setStoreIdentifier: (state, action: PayloadAction<string>) => {
+      state.storeIdentifier = action.payload;
+      try {
+        localStorage.setItem('storeIdentifier', action.payload);
+      } catch (error) {
+        console.error('Error saving store identifier:', error);
+      }
+    },
+
     clearUserInfo: (state) => {
       try {
         localStorage.removeItem('accessToken');
@@ -190,11 +210,13 @@ const authSlice = createSlice({
         localStorage.removeItem('email');
         localStorage.removeItem('userInfo');
         localStorage.removeItem('accessTokenSetTime');
+        localStorage.removeItem('storeIdentifier');
 
         state.localStorageUserData = null;
         state.userAccessToken = null;
         state.userRefreshToken = null;
         state.userEmail = null;
+        state.storeIdentifier = undefined;
       } catch (error) {
         console.error('Error clearing user info:', error);
       }
@@ -214,19 +236,10 @@ const authSlice = createSlice({
     builder.addCase(handleLogin.rejected, (state) => {
       state.isLoading = false;
     });
-    builder.addCase(handleSignUp.pending, (state) => {
-      state.isLoading = true;
-    });
-    builder.addCase(handleSignUp.fulfilled, (state) => {
-      state.isLoading = false;
-    });
-    builder.addCase(handleSignUp.rejected, (state) => {
-      state.isLoading = false;
-    });
   },
 });
 
-export const { clearUserInfo, setUserInfo, toggleIsLoading, setAccessToken } =
+export const { clearUserInfo, setUserInfo, toggleIsLoading, setAccessToken, setStoreIdentifier } =
   authSlice.actions;
 
 export default authSlice.reducer;

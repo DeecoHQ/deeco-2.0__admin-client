@@ -32,7 +32,6 @@ export default function LoginForm() {
     }
 
     try {
-      // ✅ Send JSON payload
       const payload = {
         email: loginForm.email,
         password: loginForm.password,
@@ -48,7 +47,6 @@ export default function LoginForm() {
         handleLogin.fulfilled.match(response) &&
         loginResponse?.data?.response
       ) {
-        toast.success('Login successful!');
         setLoginForm({ email: '', password: '' });
         router.push('/');
       } else {
