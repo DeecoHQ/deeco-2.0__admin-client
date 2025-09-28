@@ -85,10 +85,11 @@ export const handleLogin = createAsyncThunk(
       }
 
       const loginUrl = `/api/v1/auth/log-in`;
-      const loadingId = toast.loading('processing request...');
+      toast.loading('processing request...');
       const response = await axiosInstance.post(loginUrl, loginData);
 
-      const { access_token, refresh_token, user_profile } = response.data.response;
+      const { access_token, refresh_token, user_profile } =
+        response.data.response;
 
       thunkAPI.dispatch(
         setUserInfo({
@@ -101,7 +102,7 @@ export const handleLogin = createAsyncThunk(
         thunkAPI.dispatch(setStoreIdentifier(user_profile.store_identifier));
       }
 
-      toast.dismiss(loadingId);
+      toast.dismiss();
       toast.success('Login successful!', { duration: 4000 });
 
       return response;
@@ -125,7 +126,7 @@ export const handleSignUp = createAsyncThunk(
 
       const signUpUrl = `/api/v1/auth/register`;
 
-      const loadingId = toast.loading('processing request...');
+      toast.loading('processing request...');
 
       const response = await axiosInstance.post(signUpUrl, signUpData, {
         headers: { 'Content-Type': 'application/json' },
@@ -140,7 +141,7 @@ export const handleSignUp = createAsyncThunk(
         })
       );
 
-      toast.dismiss(loadingId);
+      toast.dismiss();
       toast.success('Registration successful!', { duration: 5000 });
 
       return response;
