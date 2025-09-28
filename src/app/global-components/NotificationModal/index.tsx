@@ -3,40 +3,40 @@
 
 import { useAppDispatch, useAppSelector } from "@/app/rtk-base/hook";
 import { RootState } from "@/app/rtk-base/store";
-import { hideNotificationModal } from "@/app/rtk-base/slices/globalModalSlice";
+import { hideNotificationModal } from "@/app/rtk-base/slices/notificationModalSlice";
 import { HiOutlineX } from "react-icons/hi";
 import Overlay from "@/app/global-components/OverlayComponent";
 
 type NotificationModalProps = {
-  onConfirm?: () => void;
+  onConfirm?: (extraData?: { productId?: number }) => void;
   onCancel?: () => void;
 };
-
 export default function NotificationModal({ onConfirm, onCancel }: NotificationModalProps) {
   const dispatch = useAppDispatch();
 
-const {
-  isOpen,
-  type = "info",
-  title = "",
-  message = "",
-  confirmText = "Okay",
-  cancelText = "Cancel"
-} = useAppSelector((state: RootState) => state.notificationModal);
+  const {
+    isOpen,
+    type = "info",
+    title = "",
+    message = "",
+    confirmText = "Okay",
+    cancelText = "Cancel",
+    extraData,
+  } = useAppSelector((state: RootState) => state.notificationModal);
 
   if (!isOpen) return null;
 
   const handleClose = () => dispatch(hideNotificationModal());
 
-  // If no handlers were passed, fallback to just close on action
   const handleConfirm = () => {
-    if (onConfirm) onConfirm();
-    handleClose();
-  };
+  if (onConfirm) onConfirm(extraData); // pass object
+  handleClose();
+};
   const handleCancel = () => {
-    if (onCancel) onCancel();
+    if (onCancel) onCancel?.();
     handleClose();
   };
+
 
   return (
     <Overlay onClose={handleClose}>

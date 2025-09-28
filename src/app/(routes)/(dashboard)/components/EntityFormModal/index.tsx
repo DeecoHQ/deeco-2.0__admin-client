@@ -9,6 +9,14 @@ import ProductForm from "@/app/(routes)/(dashboard)/components/ProductForm";
 import CategoriesForm from "@/app/(routes)/(dashboard)/components/CategoryForm";
 import BrandsForm from "@/app/(routes)/(dashboard)/components/BrandForm";
 
+export interface ModalData {
+  type: "create" | "update" | "delete";
+  entity: string;
+  extraProps?: {
+    productId?: number;
+  };
+}
+
 export default function FormModal() {
  const dispatch = useAppDispatch();   
  const { isOpen, modalData } = useAppSelector((state) => state.formModal);
@@ -23,7 +31,8 @@ export default function FormModal() {
       //   return <OrdersForm type={type} />;
       case "products":
        case "products":
-      return <ProductForm mode={type} productId={modalData.productId} />; 
+      // return <ProductForm mode={type} productId={modalData.productId} />; 
+      return <ProductForm mode={type} productId={modalData.extraProps?.productId} />;
 
       case "categories":
         return <CategoriesForm type={type} />;
