@@ -23,7 +23,7 @@ export default function BrandsPage() {
           <h2 className='text-2xl font-semibold mb-2'>Categories</h2>
           <p className='text-gray-600'>
             Categories help you customize the experience of your users. <br />
-            Add details of the brands you support, and we will display them on
+            Add the various categories you sell in, and we will display them on
             your store.
             <br /> <br />
             Ensure to use consistent designs for each category image/icon you

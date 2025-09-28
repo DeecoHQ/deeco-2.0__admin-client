@@ -19,11 +19,10 @@ export default function BrandsPage() {
           <h2 className='text-2xl font-semibold mb-2'>Brands</h2>
           <p className='text-gray-600'>
             Brands help you customize the experience of your users. <br />
-            Add the various categories you sell in, and we will display them on
+            Add details of the brands you support, and we will display them on
             your store.
             <br /> <br />
-            Ensure to use consistent designs for each category image/icon you
-            want.
+            Ensure to use consistent designs for each brand image/icon you want.
             <br />
             Good Luck!!!
           </p>
