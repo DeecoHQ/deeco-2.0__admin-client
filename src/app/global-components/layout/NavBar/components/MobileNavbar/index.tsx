@@ -77,7 +77,8 @@ function MobileNavBar(): JSX.Element {
                   onClick={disconnect}
                   className='py-2.5 px-3 bg-red-500 text-white w-full rounded-[10px] text-[14px] text-center cursor-pointer'
                 >
-                  Disconnect ({address.slice(0, 6)}...{address.slice(-4)})
+                  Disconnect
+                  {/* ({address.slice(0, 6)}...{address.slice(-4)}) */}
                 </button>
               ) : (
                 <button

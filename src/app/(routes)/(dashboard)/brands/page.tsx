@@ -14,11 +14,18 @@ export default function BrandsPage() {
       <section className='border-b-[1px] pb-1 border-gray-200'>
         <PageRoutesIndicator pageRoutes='Admin / Brands' pageTitle='Brands' />
       </section>
-      <div className='flex-1 flex items-center justify-center'>
-        <div className='text-center'>
-          <h2 className='text-2xl font-semibold mb-2'>Brands Overview</h2>
+      <div className='flex mt-[150px] items-center justify-center mt-[200px'>
+        <div className='text-center md:w-[80%] xl:w-[70%] md:mx-auto'>
+          <h2 className='text-2xl font-semibold mb-2'>Brands</h2>
           <p className='text-gray-600'>
-            This is some dummy text for the Brands page.
+            Brands help you customize the experience of your users. <br />
+            Add the various categories you sell in, and we will display them on
+            your store.
+            <br /> <br />
+            Ensure to use consistent designs for each category image/icon you
+            want.
+            <br />
+            Good Luck!!!
           </p>
         </div>
       </div>
@@ -27,7 +34,7 @@ export default function BrandsPage() {
       <FloatingActionGroup
         actions={[
           {
-            icon: <MdOutlineNoteAlt size={32} />,
+            icon: <MdOutlineNoteAlt size={32} className='hidden' />,
             onClick: () =>
               dispatch(showModal({ type: 'update', entity: 'brands' })),
             label: 'Update Brands',

@@ -88,7 +88,7 @@ const AdminSidebar = () => {
         <ul className='mt-2 flex flex-col gap-y-1'>
           <li>
             <Link
-              href='/online-store'
+              href='/'
               className='flex gap-3 px-3 py-2 rounded-md text-sm text-gray-800 items-center'
             >
               <HiBuildingStorefront className='text-[20px] cursor-pointer text-[#2F2F30]' />
@@ -103,7 +103,7 @@ const AdminSidebar = () => {
         <ul className='mt-2 flex flex-col gap-y-1'>
           <li>
             <Link
-              href='/online-store'
+              href='/'
               className='flex gap-3 px-3 py-2 rounded-md text-sm text-gray-800 items-center'
             >
               <HiChatBubbleLeftRight className='text-[20px] cursor-pointer text-[#2F2F30]' />
@@ -116,7 +116,7 @@ const AdminSidebar = () => {
       {/* Bottom settings */}
       <div className='px-3 py-4 border-t border-gray-200'>
         <Link
-          href='/settings'
+          href='/'
           className='flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-200 text-sm text-gray-800'
         >
           <HiCog6Tooth className='text-[18px]' />

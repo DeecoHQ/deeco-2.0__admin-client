@@ -64,20 +64,20 @@ function ProductsPage() {
 
   return (
     <main className='min-h-screen flex flex-col'>
-    <section className='border-b-[1px] pb-1 border-gray-200 flex justify-between'>
+      <section className='border-b-[1px] pb-1 border-gray-200 flex justify-between'>
         <PageRoutesIndicator
           pageRoutes='Admin / Products'
           pageTitle='Products'
         />
         <ContractDetailsPopOver
-          contractName='Products Contract'
-          contractAddress='0x1234567890abcdef1234567890abcdef12345678'
-          status='active'
-          blockExplorerLink='https://etherscan.io/address/0x1234567890abcdef1234567890abcdef12345678'
+          contractName='Product Management Contract'
+          contractAddress='0x000000000000000000000000000000000'
+          status='inactive'
+          blockExplorerLink='/'
         />
       </section>
 
-      <div className="mt-[10px] grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-x-[20px] gap-y-[30px]">
+      <div className='mt-[10px] grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-x-[20px] gap-y-[30px]'>
         {data?.products?.map((product: ProductSpecs) => (
           <ProductCard key={product.id} productData={product} />
         ))}
@@ -93,13 +93,13 @@ function ProductsPage() {
               if (data?.products?.length) {
                 handleUpdateProcess(data.products[0].id); // Example: first product
               } else {
-                toast.error("No products available to update");
+                toast.error('No products available to update');
               }
             },
             label: 'Update Product',
           },
           {
-            icon: <MdLibraryAdd size={32} />,
+            icon: <MdLibraryAdd size={32} className='hidden' />,
             onClick: () =>
               dispatch(showModal({ type: 'create', entity: 'products' })),
             label: 'Create Product',

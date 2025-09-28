@@ -32,7 +32,7 @@ const dispatch = useAppDispatch();
         <section className='border-b-[1px] pb-1 border-gray-200'>
           <PageRoutesIndicator
             pageRoutes='Admin / Dashboard Home'
-            pageTitle='Dashboard Home'
+            pageTitle='Home'
           />
         </section>
         <div className='w-full pt-12 pb-20 md:mt-20'>
@@ -75,10 +75,10 @@ const dispatch = useAppDispatch();
                 </div>
                 <div className='base flex gap-x-1'>
                   <span className='text-[25px] sm:text-[30px] font-medium'>
-                    1800
+                    12
                   </span>
                   <div className='h-[15px] mt-[15px] text-[14px]'>
-                    +20 in the last 30 days
+                    +3 in the last 30 days
                   </div>
                 </div>
               </section>
@@ -130,11 +130,11 @@ const dispatch = useAppDispatch();
                   </div>
                 </div>
                 <div className='base flex gap-x-1'>
-                  <span className='text-[25px] sm:text-[30px] font-medium'>
-                    7
-                  </span>
+                  {/* <span className='text-[25px] sm:text-[30px] font-medium'>
+                    1000
+                  </span> */}
                   <div className='h-[15px] mt-[15px] text-[14px]'>
-                    +4 in the last 30 days
+                    +7 new orders in the last 24 hours
                   </div>
                 </div>
               </section>
