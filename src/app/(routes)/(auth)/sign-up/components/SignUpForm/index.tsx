@@ -146,7 +146,7 @@ const SignUpForm = () => {
             required
           />
           <span
-            className='absolute right-3 top-[42px] cursor-pointer'
+            className='absolute right-3 top-[45px] cursor-pointer'
             onClick={() => setShowPassword(!showPassword)}
           >
             {showPassword ? (
@@ -173,7 +173,7 @@ const SignUpForm = () => {
             }
           />
           <span
-            className='absolute right-3 top-[42px] cursor-pointer'
+            className='absolute right-3 top-[45px] cursor-pointer'
             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
           >
             {showConfirmPassword ? (
