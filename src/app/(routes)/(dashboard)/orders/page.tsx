@@ -24,7 +24,7 @@ export default function OrdersPage() {
       <div
         className={`${
           !isContractDeployed ? 'flex' : 'hidden'
-        } flex items-center justify-center mt-[200px]`}
+        } flex items-center justify-center mt-[150px]`}
       >
         <div className='text-center md:w-[70%] xl:w-[50%] md:mx-auto'>
           <h2 className='text-2xl font-semibold mb-2'>Order Management</h2>

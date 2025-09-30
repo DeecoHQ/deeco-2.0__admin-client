@@ -9,7 +9,7 @@ export default function CustomersPage() {
           pageTitle='Customers'
         />
       </section>
-      <div className='flex mt-[150px] items-center justify-center mt-[200px'>
+      <div className='flex mt-[150px] items-center justify-center'>
         <div className='text-center md:w-[80%] xl:w-[70%] md:mx-auto'>
           <h2 className='text-2xl font-semibold mb-2'>Customers</h2>
           <p className='text-gray-600'>
