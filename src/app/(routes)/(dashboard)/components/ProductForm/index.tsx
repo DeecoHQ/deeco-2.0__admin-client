@@ -23,14 +23,14 @@ const ProductForm: React.FC<ProductFormProps> = ({ mode, productId }) => {
 
   // 👇 single form state (renamed to avoid redeclare issue)
   const [formDataState, setFormDataState] = useState({
-    product_name: "",
-    product_type: "physical product",
-    product_description: "",
-    real_price: "",
-    discount_price: "",
-    stock: "",
+    product_name: '',
+    product_type: 'physical product',
+    product_description: '',
+    real_price: '',
+    discount_price: '',
+    stock: '',
     is_free_delivery_available: false,
-    rating: "",
+    rating: 0,
   });
 
   const [file, setFile] = useState<File | null>(null);
@@ -38,23 +38,23 @@ const ProductForm: React.FC<ProductFormProps> = ({ mode, productId }) => {
 
   // Fetch product if in update mode
   useEffect(() => {
-    if (mode === "update" && productId) {
+    if (mode === 'update' && productId) {
       dispatch(getProductById(productId));
     }
   }, [mode, productId, dispatch]);
 
   // Prefill form when product is loaded
   useEffect(() => {
-    if (mode === "update" && product && product.id === productId) {
+    if (mode === 'update' && product && product.id === productId) {
       setFormDataState({
-        product_name: product.product_name || "",
-        product_type: product.product_type || "physical product",
-        product_description: product.product_description || "",
-        real_price: product.real_price?.toString() || "",
-        discount_price: product.discount_price?.toString() || "",
-        stock: product.stock?.toString() || "",
+        product_name: product.product_name || '',
+        product_type: product.product_type || 'physical product',
+        product_description: product.product_description || '',
+        real_price: product.real_price?.toString() || '',
+        discount_price: product.discount_price?.toString() || '',
+        stock: product.stock?.toString() || '',
         is_free_delivery_available: !!product.is_free_delivery_available,
-        rating: product.rating?.toString() || "",
+        rating: product.rating,
       });
     }
   }, [product, mode, productId]);
@@ -66,7 +66,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ mode, productId }) => {
   ) => {
     const { name, value, type } = e.target;
 
-    if (type === "checkbox" && e.target instanceof HTMLInputElement) {
+    if (type === 'checkbox' && e.target instanceof HTMLInputElement) {
       setFormDataState({
         ...formDataState,
         [name]: e.target.checked,
@@ -89,179 +89,225 @@ const ProductForm: React.FC<ProductFormProps> = ({ mode, productId }) => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-  
     if (!formDataState.product_name || !formDataState.product_description) {
-      toast.error("Please fill in all required fields", { duration: 3000 });
+      toast.error('Please fill in all required fields', { duration: 3000 });
       return;
     }
 
-    if (!isFilePicked && mode === "create") {
-      toast.error("Please upload a product image", { duration: 3000 });
+    if (!isFilePicked && mode === 'create') {
+      toast.error('Please upload a product image', { duration: 3000 });
       return;
     }
 
     const formData = new FormData();
-    formData.append('product_name',  formDataState.product_name)
-    formData.append('product_type',  formDataState.product_type)
-    formData.append('product_description',  formDataState.product_description)
-    formData.append('real_price',  formDataState.real_price)
-    formData.append('discount_price',  formDataState.discount_price)
-    formData.append('stock',  formDataState.stock)
-    formData.append('rating',  formDataState.rating)
+    formData.append('product_name', formDataState.product_name);
+    formData.append('product_type', formDataState.product_type);
+    formData.append('product_description', formDataState.product_description);
+    formData.append('real_price', formDataState.real_price);
+    formData.append('discount_price', formDataState.discount_price);
+    formData.append('stock', formDataState.stock);
+    formData.append('rating', String(formDataState.rating));
     formData.append(
-  'is_free_delivery_available',formDataState.is_free_delivery_available.toString()
-);
-if (file) {
-  formData.append('product_image', file); // 
-}
+      'is_free_delivery_available',
+      formDataState.is_free_delivery_available.toString()
+    );
+    if (file) {
+      formData.append('product_image', file); //
+    }
 
     console.log(formData);
     console.log(file);
 
- try {
-  if (mode === "create") {
-    await dispatch(
-      createProduct({
-        productData: formData,
-        store_identifier: store_identifier || "", 
-      })
-    );
+    try {
+      if (mode === 'create') {
+        await dispatch(
+          createProduct({
+            productData: formData,
+            store_identifier: store_identifier || '',
+          })
+        );
 
-    // reset state after successful create
-    setFormDataState({
-      product_name: "",
-      product_type: "",
-      product_description: "",
-      real_price: "",
-      discount_price: "",
-      stock: "",
-      is_free_delivery_available: false,
-      rating: "",
-    });
-    setFile(null);
-    setIsFilePicked(false);
-
-  } else if (mode === "update" && productId) {
-    await dispatch(
-      updateProduct({
-        id: productId,
-        formData,
-        store_identifier: store_identifier || "", 
-      })
-    );
-
-  }
-} catch (err) {
-  console.error("Submit error:", err);
-  if (err instanceof Error) {
-    toast.error(err.message);
-  } else {
-    toast.error("Failed to submit");
-  }
-}
-  }
+        // reset state after successful create
+        setFormDataState({
+          product_name: '',
+          product_type: '',
+          product_description: '',
+          real_price: '',
+          discount_price: '',
+          stock: '',
+          is_free_delivery_available: false,
+          rating: 0,
+        });
+        setFile(null);
+        setIsFilePicked(false);
+      } else if (mode === 'update' && productId) {
+        await dispatch(
+          updateProduct({
+            id: productId,
+            formData,
+            store_identifier: store_identifier || '',
+          })
+        );
+      }
+    } catch (err) {
+      console.error('Submit error:', err);
+      if (err instanceof Error) {
+        toast.error(err.message);
+      } else {
+        toast.error('Failed to submit');
+      }
+    }
+  };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-lg mx-auto p-4 space-y-4">
+    <form onSubmit={handleSubmit} className='w-full mx-auto px-3 pb-4'>
+      <label
+        htmlFor='product_name'
+        className='block text-sm font-medium text-gray-700 mb-2'
+      >
+        Product Name
+      </label>
       <input
-        type="text"
-        name="product_name"
-        placeholder="Product Name"
+        type='text'
+        name='product_name'
+        id='product_name'
+        placeholder='Product Name'
         value={formDataState.product_name}
         onChange={handleChange}
         required
-        className="border border-gray-300 px-4 py-2 w-full rounded-md"
+        className='border border-gray-300 text-[12px] px-4 py-3 w-full rounded-[10px]'
       />
 
+      <label
+        htmlFor='product_type'
+        className='block text-sm font-medium text-gray-700 mt-3 mb-2'
+      >
+        Product Type
+      </label>
       <select
-        name="product_type"
+        name='product_type'
+        id='product_type'
         value={formDataState.product_type}
         onChange={handleChange}
         required
-        className="border border-gray-300 px-4 py-2 w-full rounded-md"
+        className='border border-gray-300 text-[12px] px-4 py-3 w-full rounded-[10px]'
       >
-        <option value="physical product">Physical Product</option>
-        <option value="digital product">Digital Product</option>
+        <option value='physical product'>Physical Product</option>
+        <option value='digital product'>Digital Product</option>
       </select>
 
+      <label
+        htmlFor='product_description'
+        className='block text-sm font-medium text-gray-700 mt-3 mb-2'
+      >
+        Product Description
+      </label>
       <textarea
-        name="product_description"
-        placeholder="Product Description"
+        name='product_description'
+        id='product_description'
+        placeholder='Product Description'
         value={formDataState.product_description}
         onChange={handleChange}
         required
-        className="border border-gray-300 px-4 py-2 w-full rounded-md"
+        className='border border-gray-300 text-[12px] px-4 py-3 w-full rounded-[10px]'
+        rows={10}
+        cols={40}
       />
 
+      <label
+        htmlFor='real_price'
+        className='block text-sm font-medium text-gray-700 mt-3 mb-2'
+      >
+        Real Price
+      </label>
       <input
-        type="number"
-        step="0.01"
-        name="real_price"
-        placeholder="Real Price"
+        type='number'
+        step='0.01'
+        name='real_price'
+        id='real_price'
+        placeholder='Real Price'
         value={formDataState.real_price}
         onChange={handleChange}
         required
-        className="border border-gray-300 px-4 py-2 w-full rounded-md"
+        className='border border-gray-300 text-[12px] px-4 py-3 w-full rounded-[10px]'
       />
 
+      <label
+        htmlFor='discount_price'
+        className='block text-sm font-medium text-gray-700 mt-3 mb-2'
+      >
+        Discount Price
+      </label>
       <input
-        type="number"
-        step="0.01"
-        name="discount_price"
-        placeholder="Discount Price"
+        type='number'
+        step='0.01'
+        name='discount_price'
+        id='discount_price'
+        placeholder='Discount Price'
         value={formDataState.discount_price}
         onChange={handleChange}
         required
-        className="border border-gray-300 px-4 py-2 w-full rounded-md"
+        className='border border-gray-300 text-[12px] px-4 py-3 w-full rounded-[10px]'
       />
 
+      <label
+        htmlFor='stock'
+        className='block text-sm font-medium text-gray-700 mt-3 mb-2'
+      >
+        Stock Quantity
+      </label>
       <input
-        type="number"
-        name="stock"
-        placeholder="Stock Quantity"
+        type='number'
+        name='stock'
+        id='stock'
+        placeholder='Stock Quantity'
         value={formDataState.stock}
         onChange={handleChange}
         required
-        className="border border-gray-300 px-4 py-2 w-full rounded-md"
+        className='border border-gray-300 text-[12px] px-4 py-3 w-full rounded-[10px]'
       />
 
-      <label className="flex items-center gap-2">
+      <label
+        className='flex items-center gap-2 mt-4 text-sm'
+        htmlFor='is_free_delivery_available'
+      >
         <input
-          type="checkbox"
-          name="is_free_delivery_available"
+          type='checkbox'
+          name='is_free_delivery_available'
+          id='is_free_delivery_available'
           checked={formDataState.is_free_delivery_available}
           onChange={handleChange}
-          className="h-4 w-4"
+          className='h-4 w-4'
         />
-        Free Delivery Available
+        Free Delivery Available?
       </label>
 
-      <input
-        name="rating"
-        type="number"
-        step="0.1"
-        min="0"
-        max="5"
-        placeholder="Rating (0 - 5)"
-        value={formDataState.rating}
-        onChange={handleChange}
-        required
-        className="border border-gray-300 px-4 py-2 w-full rounded-md"
-      />
-
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleFileChange}
-        className="border border-gray-300 px-4 py-2 w-full rounded-md"
-        required={mode === "create"}
-      />
-
-      <button
-        type="submit"
-        className="bg-green-600 text-white px-4 py-2 rounded w-full hover:bg-green-700 disabled:opacity-50"
+      <label
+        htmlFor='product_image'
+        className='block text-sm font-medium text-gray-700 mt-3 mb-2'
       >
-        {mode === "create" ? "Create Product" : "Update Product"}
+        Product Image
+      </label>
+      {/* <input
+        type='file'
+        accept='image/*'
+        id='product_image'
+        onChange={handleFileChange}
+        className='border border-gray-300 text-[12px] px-4 py-3 w-full rounded-[10px]'
+        required={mode === 'create'}
+      /> */}
+      <input
+        type='file'
+        accept='image/*'
+        id='product_image'
+        onChange={handleFileChange}
+        required={mode === 'create'}
+      />
+      <button
+        type='submit'
+        className='mt-6 bg-[#043D25] text-white px-4 py-2.5 rounded-[10px] w-full hover:bg-[#043D25] disabled:opacity-50'
+      >
+        {mode === 'create' ? 'Create Product' : 'Update Product'}
       </button>
     </form>
   );

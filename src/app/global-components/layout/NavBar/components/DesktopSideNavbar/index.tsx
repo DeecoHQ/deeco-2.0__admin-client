@@ -92,7 +92,7 @@ const AdminSidebar = () => {
               className='flex gap-3 px-3 py-2 rounded-md text-sm text-gray-800 items-center'
             >
               <HiBuildingStorefront className='text-[20px] cursor-pointer text-[#2F2F30]' />
-              <span>Visit Store</span>
+              <span>Activate Store</span>
             </Link>
           </li>
         </ul>

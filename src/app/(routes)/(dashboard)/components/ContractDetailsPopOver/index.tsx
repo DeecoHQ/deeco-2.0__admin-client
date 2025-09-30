@@ -48,9 +48,9 @@ function ContractDetailsPopOver({
       <Popover className='relative'>
         <PopoverButton className='outline-none'>
           {' '}
-          <button className='w-[35px] h-[35px] border-[1px] rounded-full flex items-center justify-center outline-none'>
+          <div className='w-[35px] h-[35px] border-[1px] rounded-full flex items-center justify-center outline-none'>
             <HiMiniEllipsisVertical className='text-[22px] outline-none' />
-          </button>
+          </div>
         </PopoverButton>
         <PopoverPanel anchor='bottom'>
           <div className='flex flex-col gap-y-3 text-[12px] relative bg-gray-200 w-[250px] p-3 rounded-[7px] mr-3 mt-2 sm:mr-6 lg:mr-8 xl:mr-6'>

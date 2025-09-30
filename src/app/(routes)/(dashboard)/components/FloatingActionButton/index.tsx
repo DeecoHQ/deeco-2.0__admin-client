@@ -17,7 +17,7 @@ const FloatingActionButton: React.FC<FloatingActionButtonProps> = ({
     <button
       onClick={onClick}
       aria-label={label}
-      className="bg-[#3cac84] text-white p-3 rounded-full shadow-lg transition hover:scale-110 cursor-pointer"
+      className='bg-[#043D25] text-white p-3 rounded-full shadow-lg transition hover:scale-110 cursor-pointer'
     >
       {icon}
     </button>

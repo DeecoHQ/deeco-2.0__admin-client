@@ -4,14 +4,14 @@ import React from 'react';
 import DesktopSideNavbar from '../NavBar/components/DesktopSideNavbar';
 import DesktopTopNavbar from '../NavBar/components/DesktopTopNavbar';
 import MobileNavbar from '../NavBar/components/MobileNavbar';
-import EntityFormModal from "@/app/(routes)/(dashboard)/components/EntityFormModal";
-import GlobalModal from "@/app/global-components/NotificationModal";
+import FormModalsCenter from '@/app/(routes)/(dashboard)/components/FormModalsCenter';
+import GlobalModal from '@/app/global-components/NotificationModal';
 import DeecoRouteProtector from '@/app/global-components/DeecoRouteProtector';
 import { useAppDispatch } from '@/app/rtk-base/hook';
 import { deleteProduct } from '@/app/rtk-base/slices/Inventory/productSlice';
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
-  const dispatch = useAppDispatch(); 
+  const dispatch = useAppDispatch();
 
   return (
     <DeecoRouteProtector>
@@ -28,14 +28,14 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         </main>
       </div>
 
-     <GlobalModal
+      <GlobalModal
         onConfirm={(extraData) => {
           if (extraData?.productId) {
             dispatch(deleteProduct({ id: extraData.productId }));
           }
         }}
-    />
-      <EntityFormModal />
+      />
+      <FormModalsCenter />
     </DeecoRouteProtector>
   );
 };

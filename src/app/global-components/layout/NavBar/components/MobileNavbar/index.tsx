@@ -67,7 +67,7 @@ function MobileNavBar(): JSX.Element {
                 className='notifications-count w-[20px] h-[20px] rounded-full bg-[#FE6F48] text-white
                   flex items-center justify-center text-[10px] font-semibold absolute top-[-8px] right-[-5px]'
               >
-                5
+                0
               </div>
               <HiBell className='text-[25px] cursor-pointer text-[#2F2F30]' />
             </Link>
