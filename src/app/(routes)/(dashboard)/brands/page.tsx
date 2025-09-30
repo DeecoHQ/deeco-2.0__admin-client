@@ -1,10 +1,10 @@
 "use client";
 
 import PageRoutesIndicator from "../components/PageRoutesIndicator";
-import { MdLibraryAdd, MdOutlineNoteAlt } from "react-icons/md";
-import { useDispatch } from "react-redux";
-import { showModal } from "@/app/rtk-base/slices/entityFormSlice";
-import FloatingActionGroup from "./../components/FloatingActionGroup";
+import { HiPlus } from 'react-icons/hi2';
+import { useDispatch } from 'react-redux';
+import { showModal } from '@/app/rtk-base/slices/inventoryFormsSlice';
+import FloatingActionGroup from './../components/FloatingActionGroup';
 
 export default function BrandsPage() {
   const dispatch = useDispatch();
@@ -22,7 +22,8 @@ export default function BrandsPage() {
             Add details of the brands you support, and we will display them on
             your store.
             <br /> <br />
-            Ensure to use consistent designs for each brand image/icon you want.
+            Ensure to maintain a consistent design pattern across every brand
+            image/icon you add.
             <br />
             Good Luck!!!
           </p>
@@ -39,10 +40,10 @@ export default function BrandsPage() {
           //   label: 'Update Brands',
           // },
           {
-            icon: <MdLibraryAdd size={32} />,
+            icon: <HiPlus size={32} />,
             onClick: () =>
-              dispatch(showModal({ type: 'create', entity: 'brands' })),
-            label: 'Create Brands',
+              dispatch(showModal({ type: 'create', entity: 'brand' })),
+            label: 'Create Brand',
           },
         ]}
       />

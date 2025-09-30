@@ -35,7 +35,7 @@ const dispatch = useAppDispatch();
             pageTitle='Home'
           />
         </section>
-        <div className='w-full pt-12 pb-20 md:mt-20'>
+        <div className='w-full pt-12 pb-20 mb-20 md:mt-20'>
           <div className='text-center'>
             <h2 className='text-3xl p-4 md:text-4xl font-semibold mb-2 leading-[40px] sm:leading-[50px]'>
               The best way to sell anything online. <br /> Right in your
@@ -119,7 +119,7 @@ const dispatch = useAppDispatch();
                 </Link>
               </div>
             </div>
-            <div className='data-card bg-blue-100 flex flex-col p-4 rounded-[7px]'>
+            <div className='data-card bg-blue-100 flex flex-col justify-between p-4 rounded-[7px] min-h-[200px]'>
               <section className='flex gap-y-12 flex-col'>
                 <div className='top flex items-center justify-between'>
                   <div className='poppins text-[16px] font-normal'>
@@ -129,6 +129,8 @@ const dispatch = useAppDispatch();
                     <HiMiniRectangleGroup className='text-[30px]' />
                   </div>
                 </div>
+              </section>
+              <section>
                 <div className='base flex gap-x-1'>
                   {/* <span className='text-[25px] sm:text-[30px] font-medium'>
                     1000
@@ -137,15 +139,15 @@ const dispatch = useAppDispatch();
                     +7 new orders in the last 24 hours
                   </div>
                 </div>
+                <div className='mt-3'>
+                  <Link
+                    href='/analytics'
+                    className='inline-block px-5 py-1 rounded-md bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors'
+                  >
+                    View your store analytics
+                  </Link>
+                </div>
               </section>
-              <div className='mt-3 translate-y-[25px]'>
-                <Link
-                  href='/analytics'
-                  className='inline-block px-5 py-1 rounded-md bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors'
-                >
-                  View your store analytics
-                </Link>
-              </div>
             </div>
           </section>{' '}
         </div>

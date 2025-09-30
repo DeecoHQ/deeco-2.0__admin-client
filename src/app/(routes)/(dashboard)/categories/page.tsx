@@ -1,10 +1,10 @@
 "use client";
 
 import PageRoutesIndicator from "../components/PageRoutesIndicator";
-import { MdLibraryAdd, MdOutlineNoteAlt } from "react-icons/md";
-import { useDispatch } from "react-redux";
-import { showModal } from "@/app/rtk-base/slices/entityFormSlice";
-import FloatingActionGroup from "./../components/FloatingActionGroup";
+import { HiPlus } from 'react-icons/hi2';
+import { useDispatch } from 'react-redux';
+import { showModal } from '@/app/rtk-base/slices/inventoryFormsSlice';
+import FloatingActionGroup from './../components/FloatingActionGroup';
 
 export default function BrandsPage() {
   const dispatch = useDispatch();
@@ -26,8 +26,8 @@ export default function BrandsPage() {
             Add the various categories you sell in, and we will display them on
             your store.
             <br /> <br />
-            Ensure to use consistent designs for each category image/icon you
-            want.
+            Ensure to maintain a consistent design pattern across every category
+            image/icon you add.
             <br />
             Good Luck!!!
           </p>
@@ -44,9 +44,9 @@ export default function BrandsPage() {
           //   label: 'Update Category',
           // },
           {
-            icon: <MdLibraryAdd size={32} />,
+            icon: <HiPlus size={32} />,
             onClick: () =>
-              dispatch(showModal({ type: 'create', entity: 'categories' })),
+              dispatch(showModal({ type: 'create', entity: 'category' })),
             label: 'Create Category',
           },
         ]}
