@@ -32,3 +32,7 @@ html {
   background-position: center;
   background-repeat: no-repeat;
 }
+
+input[type='file']::file-selector-button {
+  @apply bg-purple-100 text-purple-900 font-medium text-sm py-2 px-4 rounded border-0 cursor-pointer;
+}
