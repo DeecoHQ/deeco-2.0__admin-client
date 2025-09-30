@@ -83,7 +83,7 @@ function MobileNavBar(): JSX.Element {
               ) : (
                 <button
                   onClick={handleConnect}
-                  className='cursor-pointer py-2.5 px-3 bg-[#3cac84] text-white w-full rounded-[10px] text-[14px] text-center flex items-center justify-center gap-2'
+                  className='cursor-pointer py-2.5 px-3 bg-[#043D25] text-white w-full rounded-[10px] text-[14px] text-center flex items-center justify-center gap-2'
                 >
                   {loading && (
                     <span className='w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin'></span>

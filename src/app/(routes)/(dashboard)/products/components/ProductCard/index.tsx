@@ -48,11 +48,11 @@ function ProductCard({ productData }: { productData: ProductSpecs }) {
       <div className='image-area w-full h-[50%]'>
         {productData.product_image?.image_url ? (
           <Image
-            src={productData.product_image.image_url || "/fallback.png"}
+            src={productData.product_image.image_url || '/fallback.png'}
             width={300}
             height={50}
             alt={productData.product_name || 'Product image'}
-            className='w-full h-full rounded-tr-[7px] rounded-tl-[7px] object-cover'
+            className='w-full h-full rounded-tr-[10px] rounded-tl-[10px] object-cover'
           />
         ) : (
           <div className='w-full h-[200px] flex items-center justify-center bg-gray-200 rounded-tr-[7px] rounded-tl-[7px]'>
@@ -80,7 +80,7 @@ function ProductCard({ productData }: { productData: ProductSpecs }) {
         <section className='mt-6 action-buttons flex flex-col gap-y-2 justify-center text-[12px] poppins text-white'>
           <button
             onClick={handleUpdateProcess}
-            className='px-4 py-3 bg-[#3cac84] w-full rounded-[7px] cursor-pointer'
+            className='px-4 py-3 bg-[#043D25] w-full rounded-[10px] cursor-pointer'
           >
             Update Product
           </button>
@@ -97,7 +97,7 @@ function ProductCard({ productData }: { productData: ProductSpecs }) {
                 })
               )
             }
-            className='px-4 py-3 border-[1px] border-[#3cac84] bg-white text-[#3cac84] w-full rounded-[7px] cursor-pointer'
+            className='px-4 py-3 border-[1px] border-[#043D25] bg-white text-[#043D25] w-full rounded-[10px] cursor-pointer'
           >
             Delete Product
           </button>
