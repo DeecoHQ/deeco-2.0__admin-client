@@ -2,7 +2,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type ModalType = "create" | "update";
-type ModalEntity = "orders" | "products" | "categories" | "brands";
+type ModalEntity = 'product' | 'category' | 'brand';
 
 interface ModalData {
   type: ModalType;
