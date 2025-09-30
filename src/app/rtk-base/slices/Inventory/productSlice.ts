@@ -7,7 +7,7 @@ import { RootState } from "../../store";
 import { setAccessToken } from "../authSlice";
 import axiosInstance from "@/app/utils/axiosConfig";
 import { mutate } from "swr";
-import { hideModal } from "../entityFormSlice";
+import { hideModal } from '../inventoryFormsSlice';
 
 // ========================
 // Types
@@ -33,7 +33,7 @@ export interface Product {
   discount_price: string;
   discount: string;
   stock: number;
-  rating: string;
+  rating: number;
   deals: { discount: number; deal_name: string }[];
   extra_selections_data: { size: string; color: string }[];
   categories: string[];

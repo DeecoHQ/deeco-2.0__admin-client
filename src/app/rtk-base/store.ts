@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import entityFormReducer from "@/app/rtk-base/slices/entityFormSlice";
+import entityFormReducer from '@/app/rtk-base/slices/inventoryFormsSlice';
 import notificationModalReducer from "@/app/rtk-base/slices/notificationModalSlice";
 import AuthReducer from "@/app/rtk-base/slices/authSlice";
 import ProductReducer from "@/app/rtk-base/slices/Inventory/productSlice";
