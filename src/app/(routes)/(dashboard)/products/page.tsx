@@ -19,7 +19,7 @@ import ContractDetailsPopOver from '../components/ContractDetailsPopOver';
 
 function ProductsPage() {
   const dispatch = useAppDispatch();
-  const [isContractDeployed, setIsContractDeployed] = useState(false);
+  const [isContractDeployed, setIsContractDeployed] = useState(true);
   const store_identifier = useAppSelector(selectStoreIdentifier);
 
   const fetchProducts = async (url: string) => {

@@ -111,9 +111,21 @@ const ProductForm: React.FC<ProductFormProps> = ({ mode, productId }) => {
       'is_free_delivery_available',
       formDataState.is_free_delivery_available.toString()
     );
+    // if (file) {
+    //   formData.append('product_image', file); //
+    // }
     if (file) {
-      formData.append('product_image', file); //
-    }
+        if (!['image/jpeg', 'image/png'].includes(file.type)) {
+          toast.error("Only JPG or PNG allowed");
+          return;
+        }
+        if (file.size > 2 * 1024 * 1024) {
+          toast.error("File size must be less than 2MB");
+          return;
+        }
+        formData.append("product_image", file);
+      }
+
 
     console.log(formData);
     console.log(file);

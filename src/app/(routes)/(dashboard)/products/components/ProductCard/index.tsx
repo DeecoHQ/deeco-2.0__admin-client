@@ -48,7 +48,7 @@ function ProductCard({ productData }: { productData: ProductSpecs }) {
       <div className='image-area w-full h-[50%]'>
         {productData.product_image?.image_url ? (
           <Image
-            src={productData.product_image.image_url}
+            src={productData.product_image.image_url || "/fallback.png"}
             width={300}
             height={50}
             alt={productData.product_name || 'Product image'}
