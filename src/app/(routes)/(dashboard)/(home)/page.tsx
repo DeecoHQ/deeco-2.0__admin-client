@@ -136,7 +136,7 @@ const dispatch = useAppDispatch();
                     1000
                   </span> */}
                   <div className='h-[15px] text-[14px]'>
-                    +7 new orders in the last 24 hours
+                    +7 orders in the last 24 hours
                   </div>
                 </div>
                 <div className='mt-3'>
