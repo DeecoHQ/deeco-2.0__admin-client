@@ -53,7 +53,7 @@ function ContractDetailsPopOver({
           </div>
         </PopoverButton>
         <PopoverPanel anchor='bottom'>
-          <div className='flex flex-col gap-y-3 text-[12px] relative bg-gray-200 w-[250px] p-3 rounded-[7px] mr-3 mt-2 sm:mr-6 lg:mr-8 xl:mr-6'>
+          <div className='flex flex-col gap-y-3 text-[12px] relative bg-gray-100 w-[250px] p-3 rounded-[7px] mr-3 mt-2 sm:mr-6 lg:mr-8 xl:mr-6'>
             <div className='flex gap-2 flex-col'>
               <span className='font-semibold'>Contract Name:</span>{' '}
               <span>{contractName}</span>
