@@ -8,6 +8,7 @@ import Logo from '@/app/assets/logo-white.png';
 import { FaRegBell } from 'react-icons/fa';
 import { BiMessageDetail } from 'react-icons/bi';
 import Link from 'next/link';
+import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 
 const AdminTopBar = () => {
   // const userInfo = useAppSelector((state) => state.auth.localStorageUserData);
@@ -21,6 +22,7 @@ const AdminTopBar = () => {
     name: string;
     email: string;
     profile_image?: ProfileImage | null;
+    store_identifier?: string;
   };
 
   const [userInfo, setUserInfo] = useState<UserInfoSpecs>({
@@ -39,6 +41,7 @@ const AdminTopBar = () => {
             profile_image: parsedData.profile_image || null,
             name: parsedData.name || '',
             email: parsedData.email || '',
+            store_identifier: parsedData.store_identifier || '',
           });
         }
       } catch (error) {
@@ -82,21 +85,66 @@ const AdminTopBar = () => {
         {/* User avatar + Store */}
         <section className='flex items-center gap-4'>
           <div className='flex items-center gap-4'>
-            <div className='flex flex-col justify-center text-[12px] max-w-[150px] truncate'>
+            <div className='flex flex-col justify-center text-[12px] truncate'>
               <span className='truncate'>
                 {userInfo?.email || '---- ---- ---- ----'}
               </span>
-              <span>---- ----</span>
+              <span>{userInfo?.store_identifier || '---- ---- ---- ----'}</span>
             </div>
-            <div className='w-8 h-8 flex items-center justify-center rounded-full bg-[#3cac84]'>
-              {userInfo?.name
-                ? userInfo.name
-                    .split(' ')
-                    .map((n) => n[0])
-                    .join('')
-                    .toUpperCase()
-                : 'MS'}
-            </div>
+            <Popover className='relative'>
+              <section
+                className='relative flex flex-row-reverse'
+                // onClick={toggleSideBar}
+              >
+                <PopoverButton className='outline-none'>
+                  <div className='w-8 h-8 flex items-center justify-center rounded-full bg-[#3cac84] cursor-pointer'>
+                    {userInfo?.name
+                      ? userInfo.name
+                          .split(' ')
+                          .map((n) => n[0])
+                          .join('')
+                          .toUpperCase()
+                      : 'MS'}
+                  </div>
+                </PopoverButton>
+                <PopoverPanel anchor='bottom'>
+                  <div className=' w-[300px] flex flex-col gap-y-3 text-[12px] relative bg-gray-100 p-3 rounded-[7px] mr-3 mt-[25px] sm:mr-6 lg:mr-8 xl:mr-6'>
+                    <div className='flex gap-2 flex-col'>
+                      <span className='font-semibold'>Full Name:</span>{' '}
+                      <span>{userInfo?.name || '____ ____ ____'} </span>
+                    </div>
+                    <section className='flex gap-2 flex-col'>
+                      <div className='font-semibold'>Email:</div>
+                      <span>{userInfo?.email || '____ ____ ____'} </span>
+                    </section>
+                    <section className='flex gap-2 flex-col'>
+                      <div className='font-semibold'>Store ID:</div>
+                      <span>
+                        {userInfo?.store_identifier || '____ ____ ____'}{' '}
+                      </span>
+                    </section>
+                    <section className='mt-2 flex justify-between items-center gap-4'>
+                      <div className='w-1/2'>
+                        <Link
+                          href='/settings'
+                          className='cursor-pointer text-center w-full inline-block outline-none px-4 py-2 rounded-md bg-slate-600 text-white text-sm font-medium hover:bg-slate-700 transition-colors'
+                        >
+                          Update Profile
+                        </Link>
+                      </div>
+                      <div className='w-1/2'>
+                        <Link
+                          href='/log-in'
+                          className='cursor-pointer text-center w-full inline-block outline-none px-6 py-2 rounded-md bg-red-600 text-white text-sm font-medium hover:bg-slate-700 transition-colors'
+                        >
+                          Log Out
+                        </Link>
+                      </div>
+                    </section>
+                  </div>
+                </PopoverPanel>
+              </section>
+            </Popover>
           </div>
         </section>
       </div>
