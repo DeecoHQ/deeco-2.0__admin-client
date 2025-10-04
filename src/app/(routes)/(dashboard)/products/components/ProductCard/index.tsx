@@ -21,7 +21,7 @@ function ProductCard({ productData }: { productData: ProductSpecs }) {
       showModal({
         type: 'update',
         entity: 'product',
-        extraProps: { productId: productData.id },
+        extraProps: { id: productData.id },
       })
     );
   };
@@ -93,7 +93,7 @@ function ProductCard({ productData }: { productData: ProductSpecs }) {
                   message: 'This action cannot be undone.',
                   confirmText: 'Yes',
                   cancelText: 'No',
-                  extraData: { productId: productData.id },
+                  extraData: { id: productData.id },
                 })
               )
             }

@@ -4,6 +4,7 @@ import entityFormReducer from '@/app/rtk-base/slices/inventoryFormsSlice';
 import notificationModalReducer from "@/app/rtk-base/slices/notificationModalSlice";
 import AuthReducer from "@/app/rtk-base/slices/authSlice";
 import ProductReducer from "@/app/rtk-base/slices/Inventory/productSlice";
+import CategoryReducer from "@/app/rtk-base/slices/Inventory/categorySlice";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     notificationModal: notificationModalReducer,
     auth:AuthReducer,
     products:ProductReducer,
+    categories:CategoryReducer,
   },
 });
 

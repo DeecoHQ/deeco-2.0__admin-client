@@ -52,13 +52,13 @@ function ProductsPage() {
   );
 
   // New helper: handleUpdateProcess for FloatingActionGroup
-  const handleUpdateProcess = (productId: number) => {
-    dispatch(getProductById(productId));
+  const handleUpdateProcess = (id: number) => {
+    dispatch(getProductById(id));
     dispatch(
       showModal({
         type: 'update',
         entity: 'product',
-        extraProps: { productId },
+        extraProps: { id },
       })
     );
   };

@@ -8,7 +8,7 @@ interface ModalData {
   type: ModalType;
   entity: ModalEntity;
   extraProps?: {
-    productId?: number; // <-- move productId here
+    id?: number; // <-- move productId here
   };
 }
 
