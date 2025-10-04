@@ -12,11 +12,11 @@ import { selectStoreIdentifier } from "@/app/rtk-base/slices/Inventory/productSl
 
 type ProductFormProps = {
   mode: "create" | "update";
-  productId?: number;
+  id?: number;
 };
 
 
-const ProductForm: React.FC<ProductFormProps> = ({ mode, productId }) => {
+const ProductForm: React.FC<ProductFormProps> = ({ mode, id }) => {
   const dispatch = useAppDispatch();
   const store_identifier = useAppSelector(selectStoreIdentifier);
   const { product, loading } = useAppSelector((state) => state.products);
@@ -38,14 +38,14 @@ const ProductForm: React.FC<ProductFormProps> = ({ mode, productId }) => {
 
   // Fetch product if in update mode
   useEffect(() => {
-    if (mode === 'update' && productId) {
-      dispatch(getProductById(productId));
+    if (mode === 'update' && id) {
+      dispatch(getProductById(id));
     }
-  }, [mode, productId, dispatch]);
+  }, [mode, id, dispatch]);
 
   // Prefill form when product is loaded
   useEffect(() => {
-    if (mode === 'update' && product && product.id === productId) {
+    if (mode === 'update' && product && product.id === id) {
       setFormDataState({
         product_name: product.product_name || '',
         product_type: product.product_type || 'physical product',
@@ -57,7 +57,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ mode, productId }) => {
         rating: product.rating,
       });
     }
-  }, [product, mode, productId]);
+  }, [product, mode, id]);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -152,10 +152,10 @@ const ProductForm: React.FC<ProductFormProps> = ({ mode, productId }) => {
         });
         setFile(null);
         setIsFilePicked(false);
-      } else if (mode === 'update' && productId) {
+      } else if (mode === 'update' && id) {
         await dispatch(
           updateProduct({
-            id: productId,
+            id: id,
             formData,
             store_identifier: store_identifier || '',
           })

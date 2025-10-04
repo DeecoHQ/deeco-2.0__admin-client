@@ -8,7 +8,7 @@ import { HiOutlineX } from "react-icons/hi";
 import Overlay from "@/app/global-components/OverlayComponent";
 
 type NotificationModalProps = {
-  onConfirm?: (extraData?: { productId?: number }) => void;
+  onConfirm?: (extraData?: { id?: number }) => void;
   onCancel?: () => void;
 };
 export default function NotificationModal({ onConfirm, onCancel }: NotificationModalProps) {

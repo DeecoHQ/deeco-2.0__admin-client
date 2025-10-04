@@ -9,6 +9,7 @@ import GlobalModal from '@/app/global-components/NotificationModal';
 import DeecoRouteProtector from '@/app/global-components/DeecoRouteProtector';
 import { useAppDispatch } from '@/app/rtk-base/hook';
 import { deleteProduct } from '@/app/rtk-base/slices/Inventory/productSlice';
+import { deleteCategory } from '@/app/rtk-base/slices/Inventory/categorySlice';
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useAppDispatch();
@@ -30,8 +31,9 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
       <GlobalModal
         onConfirm={(extraData) => {
-          if (extraData?.productId) {
-            dispatch(deleteProduct({ id: extraData.productId }));
+          if (extraData?.id) {
+            dispatch(deleteProduct({ id: extraData.id }));
+            dispatch(deleteCategory({ id: extraData.id }));
           }
         }}
       />
