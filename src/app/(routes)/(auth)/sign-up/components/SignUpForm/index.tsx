@@ -98,7 +98,7 @@ const SignUpForm = () => {
         <div className='full-name input-group flex flex-col mb-6 text-[14px] sm:text-[14px]'>
           <label htmlFor='full-name'>Full name</label>
           <input
-            className='mt-2 px-3 py-3 border-gray-300 border outline-none rounded'
+            className='mt-2 px-3 py-3 border-gray-300 border outline-none rounded-[10px]'
             type='text'
             placeholder='please input your full name'
             id='fullName'
@@ -115,7 +115,7 @@ const SignUpForm = () => {
         <div className='email input-group flex flex-col mb-6 text-[14px] sm:text-[14px]'>
           <label htmlFor='email'>Email</label>
           <input
-            className='mt-2 px-3 py-3 border-gray-300 border outline-none rounded'
+            className='mt-2 px-3 py-3 border-gray-300 border outline-none rounded-[10px]'
             type='email'
             placeholder='please add your email address'
             id='email'
@@ -132,7 +132,7 @@ const SignUpForm = () => {
         <div className='password input-group flex flex-col mb-6 text-[14px] sm:text-[14px] relative'>
           <label htmlFor='password'>Password</label>
           <input
-            className='mt-2 px-3 py-3 border-gray-300 border outline-none rounded'
+            className='mt-2 px-3 py-3 border-gray-300 border outline-none rounded-[10px]'
             type={showPassword ? 'text' : 'password'}
             placeholder='please input your password'
             id='password'
@@ -159,7 +159,7 @@ const SignUpForm = () => {
         <div className='confirm-password input-group flex flex-col mb-6 text-[14px] sm:text-[14px] relative'>
           <label htmlFor='confirm-password'>Confirm password</label>
           <input
-            className='mt-2 px-3 py-3 border-gray-300 border outline-none rounded'
+            className='mt-2 px-3 py-3 border-gray-300 border outline-none rounded-[10px]'
             type={showConfirmPassword ? 'text' : 'password'}
             required
             placeholder='re-enter password to confirm'
@@ -187,7 +187,7 @@ const SignUpForm = () => {
           type='button'
           onClick={signUpUser}
           disabled={isLoading}
-          className='submit poppins text-center bg-[#043D25] py-3 text-[14px] sm:text-[14px] text-white rounded w-full'
+          className='submit poppins text-center bg-[#043D25] py-3 text-[14px] sm:text-[14px] text-white rounded-[10px] w-full'
         >
           {isLoading ? 'Submitting...' : 'Submit'}
         </button>

@@ -22,6 +22,7 @@ import {
 import { useAppDispatch, useAppSelector } from '@/app/rtk-base/store';
 import { FaRegBell } from 'react-icons/fa';
 import { BiMessageDetail } from 'react-icons/bi';
+import { HiMiniArrowRightStartOnRectangle } from 'react-icons/hi2';
 
 const sidebarLinks = [
   { path: '/', label: 'Home', icon: <HiHome className='text-[18px]' /> },
@@ -75,6 +76,7 @@ const MobileNavLinksArea = ({ toggleSideBar }: NavLinksProps) => {
     name: string;
     email: string;
     profile_image?: ProfileImage | null;
+    store_identifier?: string;
   };
 
   const [userInfo, setUserInfo] = useState<UserInfoSpecs>({
@@ -93,6 +95,7 @@ const MobileNavLinksArea = ({ toggleSideBar }: NavLinksProps) => {
             profile_image: parsedData.profile_image || null,
             name: parsedData.name || '',
             email: parsedData.email || '',
+            store_identifier: parsedData.store_identifier || '',
           });
         }
       } catch (error) {
@@ -102,7 +105,7 @@ const MobileNavLinksArea = ({ toggleSideBar }: NavLinksProps) => {
   }, []);
 
   return (
-    <aside className='py-4 px-3'>
+    <aside className='py-4 px-3 h-screen overflow-y-auto'>
       <div className='text-[12px] flex justify-end'>
         <div className='flex items-center justify-between w-full'>
           <section className='flex items-center gap-4'>
@@ -121,7 +124,9 @@ const MobileNavLinksArea = ({ toggleSideBar }: NavLinksProps) => {
                 <span className='truncate'>
                   {userInfo?.email || '---- ---- ---- ----'}
                 </span>
-                <span>---- ----</span>
+                <span>
+                  {userInfo?.store_identifier || '---- ---- ---- ----'}
+                </span>
               </div>
             </div>
           </section>
@@ -159,7 +164,7 @@ const MobileNavLinksArea = ({ toggleSideBar }: NavLinksProps) => {
               className='flex gap-3 px-3 py-2 rounded-md text-sm text-gray-800 items-center'
             >
               <HiBuildingStorefront className='text-[20px] cursor-pointer text-[#2F2F30]' />
-              <span>Activate Store</span>
+              <span>Visit my store</span>
             </Link>
           </li>
         </ul>
@@ -198,11 +203,20 @@ const MobileNavLinksArea = ({ toggleSideBar }: NavLinksProps) => {
       {/* Bottom settings */}
       <div className='px-3 py-4 border-t border-gray-200 poppins'>
         <Link
-          href='/'
+          href='/settings'
           className='flex items-center gap-3 py-2 rounded-md hover:bg-gray-200 text-sm text-gray-800'
         >
           <HiCog6Tooth className='text-[18px]' />
           <span>Settings</span>
+        </Link>
+      </div>
+      <div className='px-3 py-4 border-t border-gray-200 poppins'>
+        <Link
+          href='/settings'
+          className='flex items-center gap-3 py-2 rounded-md hover:bg-gray-200 text-sm text-gray-800'
+        >
+          <HiMiniArrowRightStartOnRectangle className='text-[18px]' />
+          <span>Log Out</span>
         </Link>
       </div>
       {/* // </nav> */}
